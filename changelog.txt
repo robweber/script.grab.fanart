@@ -2,5 +2,5 @@
 
 [b]Version 0.0.1[/b]
 
-First version, should backup directories as needed
+First version, should copy files as intended
 

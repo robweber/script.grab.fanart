@@ -8,8 +8,8 @@
      <provides>executable</provides> 
   </extension> 
   <extension point="xbmc.addon.metadata">
-    <summary lang="en">Grabs fanart for slideshows, etc</summary>
-    <description lang="en"></description>
+    <summary lang="en">Grabs fanart to a common directory for slideshows, etc</summary>
+    <description lang="en">Uses the XBMC database to grab all fanart from external sources and put it into a common directory for use by skins/slideshows as previous version of XBMC allowed.</description>
     <platform>all</platform>
     <language></language>
   </extension>
