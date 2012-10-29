@@ -1,4 +1,5 @@
-
+[b]Version 0.0.2[/b]
+Use xbmcvfs in case of local paths
 
 [b]Version 0.0.1[/b]
 

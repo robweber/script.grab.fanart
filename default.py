@@ -55,7 +55,7 @@ class GrabFanart:
                 #only download new and file exists, or we don't care
                 if((self.download_new and self.fileExists(image_name) != 1) or not self.download_new):
                     utils.log(item['title'] + "." + str(item['year']))
-                    urllib.urlretrieve(urllib.unquote(item['fanart'][8:]),self.download_path + image_name)
+                    xbmcvfs.copy(urllib.unquote(item['fanart'][8:]),self.download_path + image_name)
             else:
                 utils.log("No fanart for: " + item['title'],xbmc.LOGDEBUG)
 
