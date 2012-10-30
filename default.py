@@ -8,6 +8,10 @@ import resources.lib.utils as utils
 class GrabFanart:
     download_path = ''
     current_files = []
+
+    progressBar = None
+    filesLeft = 0
+    filesTotal = 1
     
     def run(self):
         self.download_path = xbmc.translatePath(utils.getSetting('fanart_path'))
@@ -17,12 +21,22 @@ class GrabFanart:
         
         #make sure the path exists
         if(self.download_path != '' and xbmcvfs.exists(self.download_path)):
+
+            #open the progress bar
+            if(utils.getSetting("run_silent") == "false"):
+                self.progressBar = xbmcgui.DialogProgress()
+                self.progressBar.create(utils.getString(30010),"Copying Files")
+                
             #get new files
             self.getMovies()
             self.getTVShows()
 
             #clean old files
             self.cleanOld()
+
+            #close the progress bar
+            if(utils.getSetting("run_silent") == "false"):
+                self.progressBar.close()
         else:
              xbmcgui.Dialog().ok(utils.getString(30010),utils.getString(30020))
 
@@ -47,7 +61,12 @@ class GrabFanart:
     def copyFiles(self,jsonresult):
         
         utils.log("Found " + str(len(jsonresult)) + " objects")
+        self.filesLeft = self.filesLeft + len(jsonresult)
+        self.filesTotal = self.filesTotal + len(jsonresult)
+        
         for item in jsonresult:
+            self.updateProgress()
+            
             if(item.has_key('fanart') and item['fanart'] != ''):
                 #create the filename
                 image_name = self.createCRC(urllib.unquote(item['fanart'][8:]))
@@ -73,6 +92,12 @@ class GrabFanart:
             if not aFile in fileSet:
                xbmcvfs.delete(self.download_path + aFile)
 
+    def updateProgress(self):
+        self.filesLeft = self.filesLeft -1
+
+        if(utils.getSetting("run_silent") == 'false'):
+            self.progressBar.update(int((float(self.filesTotal - self.filesLeft)/float(self.filesTotal)) * 100),"Copying Files")
+            
     #code from XBMC wiki
     def createCRC(self, string):
         string = string.lower()        
