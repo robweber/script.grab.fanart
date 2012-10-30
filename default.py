@@ -47,13 +47,14 @@ class GrabFanart:
                 #create the filename
                 image_name = self.createCRC(urllib.unquote(item['fanart'][8:]))
 
-                #get the file
-                utils.log(item['title'] + " " + str(item['year']))
-                xbmcvfs.copy(urllib.unquote(item['fanart'][8:]),self.download_path + image_name + ".tbn")
-                
+                #get the file if it doesn't exist
+                if(not xbmcvfs.exists(self.download_path + image_name + ".tbn")):
+                    utils.log(item['title'] + " " + str(item['year']))
+                    xbmcvfs.copy(urllib.unquote(item['fanart'][8:]),self.download_path + image_name + ".tbn")        
             else:
                 utils.log("No fanart for: " + item['title'],xbmc.LOGDEBUG)
 
+    #code from XBMC wiki
     def createCRC(self, string):
         string = string.lower()        
         bytes = bytearray(string.encode())
