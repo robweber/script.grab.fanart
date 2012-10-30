@@ -7,17 +7,12 @@ import resources.lib.utils as utils
 
 class GrabFanart:
     download_path = ''
-    download_new = False
     
     def run(self):
         self.download_path = xbmc.translatePath(utils.getSetting('fanart_path'))
 
         self.download_path = self.download_path.replace('\\','/') #fix for slashes
         utils.log(self.download_path)
-
-        if(utils.getSetting("download_new") == 'true'):
-            self.download_new = True
-            utils.log("Only downloading new fanart")
         
         #make sure the path exists
         if(self.download_path != '' and xbmcvfs.exists(self.download_path)):
@@ -51,16 +46,13 @@ class GrabFanart:
             if(item.has_key('fanart') and item['fanart'] != ''):
                 #create the filename
                 image_name = self.createCRC(urllib.unquote(item['fanart'][8:]))
-            
-                #only download new and file exists, or we don't care
-                if((self.download_new and self.fileExists(image_name) != 1) or not self.download_new):
-                    utils.log(item['title'] + " " + str(item['year']))
-                    xbmcvfs.copy(urllib.unquote(item['fanart'][8:]),self.download_path + image_name + ".tbn")
+
+                #get the file
+                utils.log(item['title'] + " " + str(item['year']))
+                xbmcvfs.copy(urllib.unquote(item['fanart'][8:]),self.download_path + image_name + ".tbn")
+                
             else:
                 utils.log("No fanart for: " + item['title'],xbmc.LOGDEBUG)
-
-    def fileExists(self,fileName):
-        return xbmcvfs.exists(self.download_path + fileName)
 
     def createCRC(self, string):
         string = string.lower()        

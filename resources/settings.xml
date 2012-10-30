@@ -2,6 +2,5 @@
 <settings>
 	<category id="general" label="30011">
 		<setting id="fanart_path" type="folder" label="30012" default="special://masterprofile/Thumbnails/Video/Fanart/" />
-		<setting id="download_new" type="bool" label="30013" default="false" />
 	</category>
 </settings>
