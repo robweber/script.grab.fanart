@@ -50,17 +50,32 @@ class GrabFanart:
         for item in jsonresult:
             if(item.has_key('fanart') and item['fanart'] != ''):
                 #create the filename
-                image_name = item['title'].replace(" ",".") + "." + str(item['year']) + item['fanart'][-4:]
+                image_name = self.createCRC(urllib.unquote(item['fanart'][8:]))
             
                 #only download new and file exists, or we don't care
                 if((self.download_new and self.fileExists(image_name) != 1) or not self.download_new):
-                    utils.log(item['title'] + "." + str(item['year']))
-                    xbmcvfs.copy(urllib.unquote(item['fanart'][8:]),self.download_path + image_name)
+                    utils.log(item['title'] + " " + str(item['year']))
+                    xbmcvfs.copy(urllib.unquote(item['fanart'][8:]),self.download_path + image_name + ".tbn")
             else:
                 utils.log("No fanart for: " + item['title'],xbmc.LOGDEBUG)
 
     def fileExists(self,fileName):
         return xbmcvfs.exists(self.download_path + fileName)
+
+    def createCRC(self, string):
+        string = string.lower()        
+        bytes = bytearray(string.encode())
+        crc = 0xffffffff;
+        for b in bytes:
+            crc = crc ^ (b << 24)          
+            for i in range(8):
+                if (crc & 0x80000000 ):                 
+                    crc = (crc << 1) ^ 0x04C11DB7                
+                else:
+                    crc = crc << 1;                        
+                    crc = crc & 0xFFFFFFFF
+        
+        return '%08x' % crc
         
 GrabFanart().run()
             

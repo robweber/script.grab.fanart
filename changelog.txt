@@ -1,3 +1,6 @@
+[b]Version 0.0.3[/b]
+calc the CRC hash like xbmc does
+
 [b]Version 0.0.2[/b]
 Use xbmcvfs in case of local paths
 
