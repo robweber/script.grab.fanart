@@ -7,6 +7,7 @@ import resources.lib.utils as utils
 
 class GrabFanart:
     download_path = ''
+    current_files = []
     
     def run(self):
         self.download_path = xbmc.translatePath(utils.getSetting('fanart_path'))
@@ -16,8 +17,12 @@ class GrabFanart:
         
         #make sure the path exists
         if(self.download_path != '' and xbmcvfs.exists(self.download_path)):
+            #get new files
             self.getMovies()
             self.getTVShows()
+
+            #clean old files
+            self.cleanOld()
         else:
              xbmcgui.Dialog().ok(utils.getString(30010),utils.getString(30020))
 
@@ -47,12 +52,26 @@ class GrabFanart:
                 #create the filename
                 image_name = self.createCRC(urllib.unquote(item['fanart'][8:]))
 
+                #add to internal list
+                self.current_files.append(image_name + ".tbn")
+                
                 #get the file if it doesn't exist
                 if(not xbmcvfs.exists(self.download_path + image_name + ".tbn")):
                     utils.log(item['title'] + " " + str(item['year']))
-                    xbmcvfs.copy(urllib.unquote(item['fanart'][8:]),self.download_path + image_name + ".tbn")        
+                    xbmcvfs.copy(urllib.unquote(item['fanart'][8:]),self.download_path + image_name + ".tbn")
             else:
                 utils.log("No fanart for: " + item['title'],xbmc.LOGDEBUG)
+                
+    def cleanOld(self):
+        fileSet = set(self.current_files)
+        
+        #get a list of files from this directory
+        dirs,files = xbmcvfs.listdir(self.download_path)
+
+        #delete any files that aren't in the current file list
+        for aFile in files:
+            if not aFile in fileSet:
+               xbmcvfs.delete(self.download_path + aFile)
 
     #code from XBMC wiki
     def createCRC(self, string):
