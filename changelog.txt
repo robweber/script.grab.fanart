@@ -1,3 +1,8 @@
+[b]Version 0.0.4[/b]
+Because of CRC hash "download new" option removed
+old files removed automatically
+Added progress bar (if wanted)
+
 [b]Version 0.0.3[/b]
 calc the CRC hash like xbmc does
 
