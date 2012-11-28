@@ -54,7 +54,10 @@ class GrabFanart:
         jsonobject = json.loads(json_response)
     
         if(jsonobject.has_key('result')):
-            self.copyFiles(jsonobject['result']['tvshows'])
+            try:
+                self.copyFiles(jsonobject['result']['tvshows'])
+            except KeyError:
+                pass
             
     def getMovies(self):
         utils.log('Running get movies')
@@ -63,7 +66,10 @@ class GrabFanart:
         jsonobject = json.loads(json_response)
     
         if(jsonobject.has_key('result')):
-            self.copyFiles(jsonobject['result']['movies'])
+            try:
+                self.copyFiles(jsonobject['result']['movies'])
+            except KeyError:
+                pass
             
     def copyFiles(self,jsonresult):
         
@@ -75,8 +81,14 @@ class GrabFanart:
             self.updateProgress()
             
             if(item.has_key('fanart') and item['fanart'] != ''):
+                file_url = urllib.unquote(item['fanart'][8:])
+
+                 #check if trailing slash is included
+                if(file_url[-1:] == "/"):
+                    file_url = file_url[:-1]
+                    
                 #create the filename
-                image_name = self.createCRC(urllib.unquote(item['fanart'][8:]))
+                image_name = self.createCRC(file_url)
 
                 #add to internal list
                 self.current_files.append(image_name + ".tbn")
@@ -84,7 +96,7 @@ class GrabFanart:
                 #get the file if it doesn't exist
                 if(not xbmcvfs.exists(self.download_path + image_name + ".tbn")):
                     utils.log(item['title'] + " " + str(item['year']))
-                    xbmcvfs.copy(urllib.unquote(item['fanart'][8:]),self.download_path + image_name + ".tbn")
+                    xbmcvfs.copy(file_url,self.download_path + image_name + ".tbn")
             else:
                 utils.log("No fanart for: " + item['title'],xbmc.LOGDEBUG)
                 

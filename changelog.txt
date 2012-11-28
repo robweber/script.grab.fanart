@@ -1,15 +1,22 @@
-[b]Version 0.0.4[/b]
+Version 0.0.5
+
+now prompt to create fanart directory
+
+minor bug fixes
+
+Version 0.0.4
+
 Because of CRC hash "download new" option removed
 old files removed automatically
 Added progress bar (if wanted)
 
-[b]Version 0.0.3[/b]
+Version 0.0.3
 calc the CRC hash like xbmc does
 
-[b]Version 0.0.2[/b]
+Version 0.0.2
 Use xbmcvfs in case of local paths
 
-[b]Version 0.0.1[/b]
+Version 0.0.1
 
 First version, should copy files as intended
 
