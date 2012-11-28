@@ -20,8 +20,15 @@ class GrabFanart:
         utils.log(self.download_path)
         
         #make sure the path exists
-        if(self.download_path != '' and xbmcvfs.exists(self.download_path)):
+        if(self.download_path != ''):
 
+            if(not xbmcvfs.exists(self.download_path)):
+                #ask if the path should be created
+                if(xbmcgui.Dialog().yesno(utils.getString(30010),utils.getString(30020))):
+                    xbmcvfs.mkdir(self.download_path)
+                else:
+                    return
+            
             #open the progress bar
             if(utils.getSetting("run_silent") == "false"):
                 self.progressBar = xbmcgui.DialogProgress()
