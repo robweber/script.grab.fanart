@@ -8,7 +8,8 @@ import resources.lib.utils as utils
 class GrabFanart:
     download_path = ''
     current_files = []
-
+    ignore_files = []
+    
     progressBar = None
     filesLeft = 0
     filesTotal = 1
@@ -33,7 +34,11 @@ class GrabFanart:
             if(utils.getSetting("run_silent") == "false"):
                 self.progressBar = xbmcgui.DialogProgress()
                 self.progressBar.create(utils.getString(30010),"Copying Files")
-                
+
+            #check if there are any ignore paths
+            if(utils.getSetting("ignore_paths") != ''):
+                self.ignore_files = utils.getSetting("ignore_paths").split(',')
+ 
             #get new files
             self.getMovies()
             self.getTVShows()
@@ -49,7 +54,7 @@ class GrabFanart:
 
     def getTVShows(self):
         utils.log('Running get tv shows')
-        json_response = xbmc.executeJSONRPC('{ "jsonrpc" : "2.0" , "method" : "VideoLibrary.GetTVShows" , "params" : {"properties":["title","fanart","year"]} , "id":1 }')
+        json_response = xbmc.executeJSONRPC('{ "jsonrpc" : "2.0" , "method" : "VideoLibrary.GetTVShows" , "params" : {"properties":["title","fanart","year","file"]} , "id":1 }')
 
         jsonobject = json.loads(json_response)
     
@@ -61,7 +66,7 @@ class GrabFanart:
             
     def getMovies(self):
         utils.log('Running get movies')
-        json_response = xbmc.executeJSONRPC('{ "jsonrpc" : "2.0" , "method" : "VideoLibrary.GetMovies" , "params" : {"properties":["title","fanart","year"]} , "id":1 }')
+        json_response = xbmc.executeJSONRPC('{ "jsonrpc" : "2.0" , "method" : "VideoLibrary.GetMovies" , "params" : {"properties":["title","fanart","year","file"]} , "id":1 }')
 
         jsonobject = json.loads(json_response)
     
@@ -79,11 +84,18 @@ class GrabFanart:
         
         for item in jsonresult:
             self.updateProgress()
-            
-            if(item.has_key('fanart') and item['fanart'] != ''):
+
+            valid_file = True
+
+            #if the path is not in the ignore list
+            for files in self.ignore_files:
+                if(files in item['file']):
+                    valid_file = False
+                    
+            if(item.has_key('fanart') and item['fanart'] != '' and valid_file):
                 file_url = urllib.unquote(item['fanart'][8:])
 
-                 #check if trailing slash is included
+                #check if trailing slash is included
                 if(file_url[-1:] == "/"):
                     file_url = file_url[:-1]
                     
