@@ -1,3 +1,7 @@
+Version 0.0.7
+
+Added arguments for calling in skins or other programs
+
 Version 0.0.6
 
 added support for ignore_paths

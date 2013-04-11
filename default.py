@@ -14,7 +14,7 @@ class GrabFanart:
     filesLeft = 0
     filesTotal = 1
     
-    def run(self):
+    def run(self,override_silent = False):
         self.download_path = xbmc.translatePath(utils.getSetting('fanart_path'))
 
         self.download_path = self.download_path.replace('\\','/') #fix for slashes
@@ -31,7 +31,7 @@ class GrabFanart:
                     return
             
             #open the progress bar
-            if(utils.getSetting("run_silent") == "false"):
+            if(utils.getSetting("run_silent") == "false" and not override_silent):
                 self.progressBar = xbmcgui.DialogProgress()
                 self.progressBar.create(utils.getString(30010),"Copying Files")
 
@@ -47,7 +47,7 @@ class GrabFanart:
             self.cleanOld()
 
             #close the progress bar
-            if(utils.getSetting("run_silent") == "false"):
+            if(self.progressBar != None):
                 self.progressBar.close()
         else:
              xbmcgui.Dialog().ok(utils.getString(30010),utils.getString(30020))
@@ -126,7 +126,7 @@ class GrabFanart:
     def updateProgress(self):
         self.filesLeft = self.filesLeft -1
 
-        if(utils.getSetting("run_silent") == 'false'):
+        if(self.progressBar != None):
             self.progressBar.update(int((float(self.filesTotal - self.filesLeft)/float(self.filesTotal)) * 100),"Copying Files")
             
     #code from XBMC wiki
@@ -144,6 +144,12 @@ class GrabFanart:
                     crc = crc & 0xFFFFFFFF
         
         return '%08x' % crc
-        
-GrabFanart().run()
+
+if(len(sys.argv) > 1):
+    if(sys.argv[1].lower() == 'true'):
+        GrabFanart().run(True)
+    elif(sys.argv[1].lower() == 'false'):
+        GrabFanart().run()
+else:
+    GrabFanart().run()
             
