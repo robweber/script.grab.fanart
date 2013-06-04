@@ -15,6 +15,12 @@ class GrabFanart:
     filesTotal = 1
     
     def run(self,override_silent = False):
+
+        #check any of the silent override settings
+        if(not override_silent):
+            if(utils.getSetting("run_silent") == 'true'):
+                override_silent = True
+                
         self.download_path = xbmc.translatePath(utils.getSetting('fanart_path'))
 
         self.download_path = self.download_path.replace('\\','/') #fix for slashes
@@ -24,14 +30,18 @@ class GrabFanart:
         if(self.download_path != ''):
 
             if(not xbmcvfs.exists(self.download_path)):
-                #ask if the path should be created
-                if(xbmcgui.Dialog().yesno(utils.getString(30010),utils.getString(30020))):
+                
+                if(override_silent):
                     xbmcvfs.mkdir(self.download_path)
                 else:
-                    return
+                    #ask if the path should be created
+                    if(xbmcgui.Dialog().yesno(utils.getString(30010),utils.getString(30020))):
+                        xbmcvfs.mkdir(self.download_path)
+                    else:
+                        return
             
             #open the progress bar
-            if(utils.getSetting("run_silent") == "false" and not override_silent):
+            if(not override_silent):
                 self.progressBar = xbmcgui.DialogProgress()
                 self.progressBar.create(utils.getString(30010),"Copying Files")
 
