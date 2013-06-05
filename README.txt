@@ -2,13 +2,13 @@ Grab Fanart
 
 About: 
 
-This addon is intended a quick fix for XBMC Frodo behavior that was breaking some skins I liked to use. In Eden you could cycle through slideshows of your fanart by pointing to the Thumbnails/Video/Fanart directories. with the new image caching system in Frodo a common directory for all fanart was no longer available and this broke a lot of really cool slideshow displays. 
+This addon is intended a quick fix for XBMC Frodo behavior that was breaking some skins I liked to use. In Eden you could cycle through slideshows of your fanart by pointing to the Thumbnails/Video/Fanart or Thumbnails/Music/Fanart directories. With the new image caching system in Frodo a common directory for all fanart was no longer available and this broke a lot of really cool slideshow displays. 
 
 This script uses the XBMC Database to find the source of the fanart files and downloads them to a common directory. You can point your skin/slideshows here. To create the file a CRC hash is created like XBMC would do internally, so only changed files are downloaded when doing an update. Old files are purged by keeping an internal array. This way you'll always have the most updated fanart. 
 
 The Service: 
 
-This addon automatically starts an XBMC service that will watch for video database update events. When a library scan finishes the grabber will attempt to find new fanart. In general this will work for 99% of cases, with the following caveats:
+This addon automatically starts an XBMC service that will watch for video and music database update events. When a library scan finishes the grabber will attempt to find new fanart. In general this will work for 99% of cases, with the following caveats:
 
 1) If you change fanart on a file you'll need a manual run, or wait for the next database update event to swap it in the grabber cache
 
