@@ -14,14 +14,17 @@ class GrabFanart:
     filesLeft = 0
     filesTotal = 1
     
-    def run(self,override_silent = False):
+    def run(self,library_type,override_silent = False):
 
         #check any of the silent override settings
         if(not override_silent):
             if(utils.getSetting("run_silent") == 'true'):
                 override_silent = True
-                
-        self.download_path = xbmc.translatePath(utils.getSetting('fanart_path'))
+
+        if(library_type == 'video'):        
+            self.download_path = xbmc.translatePath(utils.getSetting('video_fanart_path'))
+        elif(library_type == 'music'):
+            self.download_path = xbmc.translatePath(utils.getSetting('music_fanart_path'))
 
         self.download_path = self.download_path.replace('\\','/') #fix for slashes
         utils.log(self.download_path)
@@ -48,10 +51,13 @@ class GrabFanart:
             #check if there are any ignore paths
             if(utils.getSetting("ignore_paths") != ''):
                 self.ignore_files = utils.getSetting("ignore_paths").split(',')
- 
-            #get new files
-            self.getMovies()
-            self.getTVShows()
+
+            if(library_type == 'video'):
+                #get new files
+                self.getMovies()
+                self.getTVShows()
+            elif(library_type == 'music'):
+                self.getMusic()
 
             #clean old files
             self.cleanOld()
@@ -86,6 +92,18 @@ class GrabFanart:
             except KeyError:
                 pass
             
+    def getMusic(self):
+        utils.log('Running get music')
+        json_response = xbmc.executeJSONRPC('{ "jsonrpc" : "2.0" , "method" : "AudioLibrary.GetArtists" , "params" : {"properties":["fanart"]} , "id":1 }')
+
+        jsonobject = json.loads(json_response)
+
+        if(jsonobject.has_key('result')):
+            try:
+                self.copyFiles(jsonobject['result']['artists'])
+            except KeyError:
+                pass
+        
     def copyFiles(self,jsonresult):
         
         utils.log("Found " + str(len(jsonresult)) + " objects")

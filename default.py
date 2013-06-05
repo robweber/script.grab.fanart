@@ -1,10 +1,15 @@
 from resources.lib.grabfanart import GrabFanart
 
+grabber = GrabFanart()
+
 if(len(sys.argv) > 1):
     if(sys.argv[1].lower() == 'true'):
-        GrabFanart().run(True)
+        grabber.run("video",True)
+        grabber.run("music",True)
     elif(sys.argv[1].lower() == 'false'):
-        GrabFanart().run()
+        grabber.run("video")
+        grabber.run("music")
 else:
-    GrabFanart().run()
+    grabber.run("video")
+    grabber.run("music")
             
