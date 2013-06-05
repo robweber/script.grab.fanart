@@ -117,10 +117,10 @@ class GrabFanart:
                 
                 #get the file if it doesn't exist
                 if(not xbmcvfs.exists(self.download_path + image_name + ".tbn")):
-                    utils.log(item['title'] + " " + str(item['year']))
+                    utils.log("Downloading for: " + item['label'],xbmc.LOGDEBUG)
                     xbmcvfs.copy(file_url,self.download_path + image_name + ".tbn")
             else:
-                utils.log("No fanart for: " + item['title'],xbmc.LOGDEBUG)
+                utils.log("No fanart for: " + item['label'],xbmc.LOGDEBUG)
                 
     def cleanOld(self):
         fileSet = set(self.current_files)
