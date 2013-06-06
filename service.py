@@ -11,13 +11,22 @@ class GrabFanartService:
         utils.log("Grab Fanart Service Started")
         self.monitor = DatabaseMonitor(monitor_method = self.databaseUpdated)
 
+        #check for first time running
+        if(utils.getSetting("first_run") == "true"):
+            utils.log("First run, create cache")
+            utils.setSetting("first_run","false")
+            GrabFanart().run("video",True)
+            GrabFanart().run("music",True)
+        
+    def run(self):
         #keep this thread alive
         while(not xbmc.abortRequested):
-
+            
             if(self.run_grabber):
                 utils.log("Grabbing Fanart")
                 GrabFanart().run(self.database,True)
                 self.run_grabber = False
+                
             xbmc.sleep(500)
 
     def databaseUpdated(self,database):
@@ -35,4 +44,4 @@ class DatabaseMonitor(xbmc.Monitor):
         self.method_to_run(database)
 
 
-GrabFanartService()
+GrabFanartService().run()
