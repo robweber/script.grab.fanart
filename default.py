@@ -1,15 +1,12 @@
-from resources.lib.grabfanart import GrabFanart
+import resources.lib.utils as utils
 
-grabber = GrabFanart()
-
+utils.log("starting")
 if(len(sys.argv) > 1):
-    if(sys.argv[1].lower() == 'true'):
-        grabber.run("video",True)
-        grabber.run("music",True)
-    elif(sys.argv[1].lower() == 'false'):
-        grabber.run("video")
-        grabber.run("music")
-else:
-    grabber.run("video")
-    grabber.run("music")
+    for arg in sys.argv:
+        #make sure it is a key/value pair
+        if "=" in arg:
+            splitString = arg.split('=')
+            utils.log(splitString[0])
+            utils.setSetting(splitString[0],splitString[1])
+            
             

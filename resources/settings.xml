@@ -1,12 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <settings>
 	<category id="general" label="30011">
-		<setting id="video_fanart_path" type="folder" label="30012" default="special://masterprofile/Thumbnails/Video/Fanart/" />
-		<setting id="music_fanart_path" type="folder" label="30014" default="special://masterprofile/Thumbnails/Music/Fanart/"/>
-		<setting id="run_silent" type="bool" default="false" label="30013" />
-		<setting id="first_run" type="text" default="true" label="first_run" visible="false" />
-	</category>
-	<category id="ignore" label="Ignore Paths">
-		<setting id="ignore_paths" type="text" default="" label="Type paths, comma separate" />
+		<setting id="refresh" type="number" default="10" label="Refresh Time" visible="true" />
+		<setting id="mode" type="labelenum" default="random" label="Mode" values="random|recent" visible="true" />
+		<setting id="mediatype" type="labelenum" default="videos" label="Media Type" values="videos|movies|tvshows|music" visible="true" />
 	</category>
 </settings>

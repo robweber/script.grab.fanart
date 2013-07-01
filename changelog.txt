@@ -1,3 +1,7 @@
+Version 0.11.0
+
+Total rewrite to use skin properties instead of cache fanart into directory
+
 Version 0.10.0
 
 added check for first run so that cache can be built automatically
