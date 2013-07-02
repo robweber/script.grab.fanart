@@ -1,3 +1,9 @@
+Version 0.11.1
+
+Added more window properties
+removed need for "mediatype" variable
+misc fixes
+
 Version 0.11.0
 
 Total rewrite to use skin properties instead of cache fanart into directory
