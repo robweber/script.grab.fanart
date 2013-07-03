@@ -2,24 +2,30 @@ Grab Fanart
 
 About: 
 
-This addon is intended a quick fix for XBMC Frodo behavior that was breaking some skins I liked to use. In Eden you could cycle through slideshows of your fanart by pointing to the Thumbnails/Video/Fanart or Thumbnails/Music/Fanart directories. With the new image caching system in Frodo a common directory for all fanart was no longer available and this broke a lot of really cool slideshow displays. 
+This addon is intended a fix for XBMC Frodo behavior that was breaking some skins I liked to use. In Eden you could cycle through slideshows of your fanart by pointing to the Thumbnails/Video/Fanart or Thumbnails/Music/Fanart directories. With the new image caching system in Frodo a common directory for all fanart was no longer available and this broke a lot of really cool slideshow displays. 
 
-This script uses the XBMC Database to find the source of the fanart files and downloads them to a common directory. You can point your skin/slideshows here. To create the file a CRC hash is created like XBMC would do internally, so only changed files are downloaded when doing an update. Old files are purged by keeping an internal array. This way you'll always have the most updated fanart. 
+This script uses the XBMC Database to find the source of the fanart files and exposes them via Window Properties so that skinners can still cycle through the art by referencing a single point of reference. 
 
-The Service: 
+Using This Addon: 
 
-This addon automatically starts an XBMC service that will watch for video and music database update events. When a library scan finishes the grabber will attempt to find new fanart. In general this will work for 99% of cases, with the following caveats:
+This addon is meant to be integrated as part of a skin. Currently it can be configured via addon settings in the Programs menu, or by calling the RunScript() function within a script. The parameters that can be set are: 
 
-1) If you change fanart on a file you'll need a manual run, or wait for the next database update event to swap it in the grabber cache
+Refresh Time: How long between property updates. Default is 10 seconds
+Mode: Show fanart for recent items (10), or for random items
 
-2) If the database is cleaned this does not register as an update (in Gotham there is a Monitor for this) so after a clean you'll need a manual run or wait for the next database update event to clear the cache
+An example of setting these parameters using the RunScript function would be RunScript(script.grab.fanart,mode=random,refresh=10). If you want to include these settings are part of the regular skins settings you can pass these as parameters to RunScript upon hitting the home screen. 
 
-3) TV and Movie database updated trigger 2 separate events. If they happen close together you may miss fanart from a new series/movie done by one of them. Again, do a manual update or wait for the next database update event. 
+Window Properties: 
 
-In general these scenerios will not hurt anything other than your fanart cache will not reflect your movie library until the next database update event is triggered. 
+Currently the service part of this addon will update Home window properties that can be used by skinners. These properties are refreshed according to the "refresh" interval. 
 
-Using in skins or other programs:
+script.grab.fanart.Video.Title - the title of a random video (movie or tv show). There is a 25% chance of this being a TV show. 
+script.grab.fanart.Video.FanArt - the path to the fanart image for this video
+script.grab.fanart.Movie.Title - title of the selected movie
+script.grab.fanart.Movie.FanArt - path to movie fanart
+script.grab.fanart.TV.Title - title of selected tv show
+script.grab.fanart.TV.FanArt - path to tv show fanart
+script.grab.fanart.Music.Title - music artist name
+script.grab.fanart.Music.FanArt - path to artist fanart 
 
-You can call this addon using the RunScript(script.grab.fanart) internal function or the Addons.ExecuteAddon() method of the JSON-RPC interface. 
-
-There is one optional parameter, related to if a progress bar dialog should be shown. This parameter will override the user setting for the progress bar, making it easy to hide the launching of the script if you wish. This is a simple "true" or "false" value - with true meaning "hide" and false meaning "use user default". It can be executed as: RunScript(script.grab.fanart, true). 
+To use this within a skin, an example would be $INFO[Window(Home).Property(script.grab.fanart.Video.Title)] to show the media title. 
