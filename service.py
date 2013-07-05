@@ -1,5 +1,6 @@
 import xbmc
 import xbmcgui
+import thread
 from time import time
 import json
 import urllib
@@ -27,15 +28,6 @@ class GrabFanartService:
     def run(self):
         #keep this thread alive
         while(not xbmc.abortRequested):
-
-            #check if the media list should be updated
-            if(time() >= self.refresh_media):
-                if(utils.getSetting('mode') == 'random'):
-                    self.grabRandom()
-                else:
-                    self.grabRecent()
-                    
-                    self.refresh_media = time() + (10 * 60)  #refresh again in 10 minutes
 
             if(time() >= self.refresh_prop):
 
@@ -71,7 +63,17 @@ class GrabFanartService:
                     self.WINDOW.setProperty('script.grab.fanart.Music.FanArt',self.xbmc_music[random_index].fan_art)
                     
                 self.refresh_prop = time() + float(utils.getSetting("refresh"))
-                
+
+
+            #check if the media list should be updated
+            if(time() >= self.refresh_media):
+                if(utils.getSetting('mode') == 'random'):
+                    thread.start_new_thread(self.grabRandom,())
+                else:
+                    thread.start_new_thread(self.grabRecent,())
+                    
+                    self.refresh_media = time() + (60 * 60)  #refresh again in 60 minutes
+                    
             xbmc.sleep(500)
 
     def grabRandom(self):
