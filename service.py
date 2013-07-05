@@ -55,8 +55,8 @@ class GrabFanartService:
                     self.WINDOW.setProperty('script.grab.fanart.TV.Title',self.xbmc_tv[random_index].title)
                     self.WINDOW.setProperty('script.grab.fanart.TV.FanArt',self.xbmc_tv[random_index].fan_art)
 
-                    #use a tv show if blank or randomly selected is = 3 (25% chance)
-                    if(aVideo == None or self.randomNum(4) == 3):
+                    #use a tv show if blank or randomly selected is = 9 (10% chance)
+                    if(aVideo == None or self.randomNum(10) == 9):
                         aVideo = self.xbmc_tv[random_index]
 
                 if(aVideo != None):
