@@ -1,3 +1,8 @@
+Version 0.11.2
+
+Extended refresh time from 10 min to 1 hr
+10% chance of "video" property showing tv show instead of 25%
+
 Version 0.11.1
 
 Added more window properties

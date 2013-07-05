@@ -13,7 +13,7 @@ This addon is meant to be integrated as part of a skin. Currently it can be conf
 Refresh Time: How long between property updates. Default is 10 seconds
 Mode: Show fanart for recent items (10), or for random items
 
-An example of setting these parameters using the RunScript function would be RunScript(script.grab.fanart,mode=random,refresh=10). If you want to include these settings are part of the regular skins settings you can pass these as parameters to RunScript upon hitting the home screen. 
+An example of setting these parameters using the RunScript function would be RunScript(script.grab.fanart,mode=random,refresh=10). If you want to include these settings are part of the regular skin settings you can pass these as parameters to RunScript upon hitting the home screen. 
 
 Window Properties: 
 
