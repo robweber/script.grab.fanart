@@ -72,7 +72,7 @@ class GrabFanartService:
                 else:
                     thread.start_new_thread(self.grabRecent,())
                     
-                    self.refresh_media = time() + (60 * 60)  #refresh again in 60 minutes
+                self.refresh_media = time() + (60 * 60)  #refresh again in 60 minutes
                     
             xbmc.sleep(500)
 
