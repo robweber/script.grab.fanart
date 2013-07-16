@@ -21,11 +21,26 @@ Currently the service part of this addon will update Home window properties that
 
 script.grab.fanart.Video.Title - the title of a random video (movie or tv show). There is a 25% chance of this being a TV show. 
 script.grab.fanart.Video.FanArt - the path to the fanart image for this video
+script.grab.fanart.Video.Poster - path to poster image for this video
+script.grab.fanart.Video.Plot - plot outline of this video
+
 script.grab.fanart.Movie.Title - title of the selected movie
 script.grab.fanart.Movie.FanArt - path to movie fanart
+script.grab.fanart.Movie.Poster - path to movie poster
+script.grab.fanart.Movie.Plot - movie plot
+
 script.grab.fanart.TV.Title - title of selected tv show
 script.grab.fanart.TV.FanArt - path to tv show fanart
-script.grab.fanart.Music.Title - music artist name
+script.grab.fanart.TV.Poster - path to tv show poster
+script.grab.fanart.TV.Plot - tv show plot description 
+
+These will only have values when the addon mode is "recent"
+script.grab.fanart.TV.Season - selected tv show season
+script.grab.fanart.TV.Episode - selected tv show episode number 
+script.grab.fanart.TV.Thumb - path to thumbnail image of this episode
+
+script.grab.fanart.Music.Artist - music artist name
 script.grab.fanart.Music.FanArt - path to artist fanart 
+script.grab.fanart.Music.Description - artist description
 
 To use this within a skin, an example would be $INFO[Window(Home).Property(script.grab.fanart.Video.Title)] to show the media title. 

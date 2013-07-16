@@ -1,3 +1,7 @@
+Version 0.11.4
+
+added additional window properties - thanks MassIV for suggestions
+
 Version 0.11.3
 
 fixed indentation error, caused update threads to spawn constantly

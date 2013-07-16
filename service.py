@@ -38,6 +38,9 @@ class GrabFanartService:
                     utils.log(self.xbmc_movies[random_index].title,xbmc.LOGDEBUG)
                     self.WINDOW.setProperty('script.grab.fanart.Movie.Title',self.xbmc_movies[random_index].title)
                     self.WINDOW.setProperty('script.grab.fanart.Movie.FanArt',self.xbmc_movies[random_index].fan_art)
+                    self.WINDOW.setProperty('script.grab.fanart.Movie.Poster',self.xbmc_movies[random_index].poster)
+                    self.WINDOW.setProperty('script.grab.fanart.Movie.Plot',self.xbmc_movies[random_index].plot)
+                    
                     aVideo = self.xbmc_movies[random_index]
                     
                 if(len(self.xbmc_tv) > 0):
@@ -46,6 +49,14 @@ class GrabFanartService:
                     utils.log(self.xbmc_tv[random_index].title,xbmc.LOGDEBUG)
                     self.WINDOW.setProperty('script.grab.fanart.TV.Title',self.xbmc_tv[random_index].title)
                     self.WINDOW.setProperty('script.grab.fanart.TV.FanArt',self.xbmc_tv[random_index].fan_art)
+                    self.WINDOW.setProperty('script.grab.fanart.TV.Poster',self.xbmc_tv[random_index].poster)
+                    self.WINDOW.setProperty('script.grab.fanart.TV.Plot',self.xbmc_tv[random_index].plot)
+
+                    #this will only have a value when "recent" is the type
+                    self.WINDOW.setProperty('script.grab.fanart.TV.Season',str(self.xbmc_tv[random_index].season))
+                    self.WINDOW.setProperty('script.grab.fanart.TV.Episode',str(self.xbmc_tv[random_index].episode))
+                    self.WINDOW.setProperty('script.grab.fanart.TV.Thumb',self.xbmc_tv[random_index].thumb)
+                    
 
                     #use a tv show if blank or randomly selected is = 9 (10% chance)
                     if(aVideo == None or self.randomNum(10) == 9):
@@ -54,13 +65,16 @@ class GrabFanartService:
                 if(aVideo != None):
                     self.WINDOW.setProperty('script.grab.fanart.Video.Title',aVideo.title)
                     self.WINDOW.setProperty('script.grab.fanart.Video.FanArt',aVideo.fan_art)
+                    self.WINDOW.setProperty('script.grab.fanart.Video.Poster',aVideo.poster)
+                    self.WINDOW.setProperty('script.grab.fanart.Video.Plot',aVideo.plot)
 
                 if(len(self.xbmc_music) > 0):
                     random_index = self.randomNum(len(self.xbmc_music))
                     
                     utils.log(self.xbmc_music[random_index].title,xbmc.LOGDEBUG)
-                    self.WINDOW.setProperty('script.grab.fanart.Music.Title',self.xbmc_music[random_index].title)
+                    self.WINDOW.setProperty('script.grab.fanart.Music.Artist',self.xbmc_music[random_index].title)
                     self.WINDOW.setProperty('script.grab.fanart.Music.FanArt',self.xbmc_music[random_index].fan_art)
+                    self.WINDOW.setProperty('script.grab.fanart.Music.Description',self.xbmc_music[random_index].plot)
                     
                 self.refresh_prop = time() + float(utils.getSetting("refresh"))
 
@@ -83,33 +97,45 @@ class GrabFanartService:
 
         utils.log("media type is: random")
         
-        media_array = self.getJSON('VideoLibrary.GetMovies','{"properties":["title","fanart","year","file"]}')
+        media_array = self.getJSON('VideoLibrary.GetMovies','{"properties":["title","art","year","file","plot"]}')
             
         if(media_array != None and media_array.has_key('movies')):
                 
             for aMovie in media_array['movies']:
                 newMedia = XbmcMedia()
                 newMedia.title = aMovie['title']
-                newMedia.fan_art = aMovie['fanart']
+                newMedia.plot = aMovie['plot']
+
+                if(aMovie['art'].has_key('fanart')):
+                    newMedia.fan_art = aMovie['art']['fanart']
+
+                if(aMovie['art'].has_key('poster')):
+                    newMedia.poster = aMovie['art']['poster']
 
                 self.xbmc_movies.append(newMedia)
                 
         utils.log("found " + str(len(self.xbmc_movies)) + " movies files")
         
-        media_array = self.getJSON('VideoLibrary.GetTVShows','{"properties":["title","fanart","year","file"]}')
+        media_array = self.getJSON('VideoLibrary.GetTVShows','{"properties":["title","art","year","file","plot"]}')
 
         if(media_array != None and media_array.has_key('tvshows')):
                 
             for aShow in media_array['tvshows']:
                 newMedia = XbmcMedia()
                 newMedia.title = aShow['title']
-                newMedia.fan_art = aShow['fanart']
+                newMedia.plot = aShow['plot']
+
+                if(aShow['art'].has_key('fanart')):
+                    newMedia.fan_art = aShow['art']['fanart']
+
+                if(aShow['art'].has_key('poster')):
+                    newMedia.poster = aShow['art']['poster']
 
                 self.xbmc_tv.append(newMedia)
 
         utils.log("found " + str(len(self.xbmc_tv)) + " tv files")
         
-        media_array = self.getJSON('AudioLibrary.GetArtists','{ "properties":["fanart"] }')
+        media_array = self.getJSON('AudioLibrary.GetArtists','{ "properties":["fanart","description"] }')
 
         if(media_array != None and media_array.has_key('artists')):
 
@@ -117,6 +143,7 @@ class GrabFanartService:
                 newMedia = XbmcMedia()
                 newMedia.title = aArtist['artist']
                 newMedia.fan_art = aArtist['fanart']
+                newMedia.plot = aArtist['description']
 
                 self.xbmc_music.append(newMedia)
 
@@ -129,27 +156,44 @@ class GrabFanartService:
 
         utils.log("media type is: recent")
         
-        media_array = self.getJSON('VideoLibrary.GetRecentlyAddedMovies','{"properties":["title","fanart","year","file"], "limits": {"end":10} }')
+        media_array = self.getJSON('VideoLibrary.GetRecentlyAddedMovies','{"properties":["title","art","year","file","plot"], "limits": {"end":10} }')
              
         if(media_array != None and media_array.has_key('movies')):
                 
             for aMovie in media_array['movies']:
                 newMedia = XbmcMedia()
                 newMedia.title = aMovie['title']
-                newMedia.fan_art = aMovie['fanart']
+                newMedia.plot = aMovie['plot']
 
+                if(aMovie['art'].has_key('fanart')):
+                    newMedia.fan_art = aMovie['art']['fanart']
+
+                if(aMovie['art'].has_key('poster')):
+                    newMedia.poster = aMovie['art']['poster']
+                    
                 self.xbmc_movies.append(newMedia)
 
         utils.log("found " + str(len(self.xbmc_movies)) + " movie files")
        
-        media_array = self.getJSON('VideoLibrary.GetRecentlyAddedEpisodes','{"properties":["showtitle","fanart","file"], "limits": {"end":10} }')
+        media_array = self.getJSON('VideoLibrary.GetRecentlyAddedEpisodes','{"properties":["showtitle","art","file","plot","season","episode"], "limits": {"end":10} }')
 
         if(media_array != None and media_array.has_key('episodes')):
                 
             for aShow in media_array['episodes']:
                 newMedia = XbmcMedia()
                 newMedia.title = aShow['showtitle']
-                newMedia.fan_art = aShow['fanart']
+                newMedia.plot = aShow['plot']
+                newMedia.season = aShow['season']
+                newMedia.episode = aShow['episode']
+                
+                if(aShow['art'].has_key('tvshow.fanart')):
+                    newMedia.fan_art = aShow['art']['tvshow.fanart']
+
+                if(aShow['art'].has_key('tvshow.poster')):
+                    newMedia.poster = aShow['art']['tvshow.poster']
+
+                if(aShow['art'].has_key('thumb')):
+                    newMedia.thumb = aShow['art']['thumb']
 
                 self.xbmc_tv.append(newMedia)
 
@@ -187,5 +231,10 @@ class GrabFanartService:
 class XbmcMedia:
     title = ''
     fan_art = ''
+    poster = ''
+    plot = ''
+    season = ''
+    episode = ''
+    thumb = ''
     
 GrabFanartService().run()
