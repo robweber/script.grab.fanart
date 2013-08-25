@@ -112,7 +112,8 @@ class GrabFanartService:
                 if(aMovie['art'].has_key('poster')):
                     newMedia.poster = aMovie['art']['poster']
 
-                self.xbmc_movies.append(newMedia)
+                if(newMedia.verify()):
+                    self.xbmc_movies.append(newMedia)
                 
         utils.log("found " + str(len(self.xbmc_movies)) + " movies files")
         
@@ -131,7 +132,8 @@ class GrabFanartService:
                 if(aShow['art'].has_key('poster')):
                     newMedia.poster = aShow['art']['poster']
 
-                self.xbmc_tv.append(newMedia)
+                if(newMedia.verify()):
+                    self.xbmc_tv.append(newMedia)
 
         utils.log("found " + str(len(self.xbmc_tv)) + " tv files")
         
@@ -145,7 +147,8 @@ class GrabFanartService:
                 newMedia.fan_art = aArtist['fanart']
                 newMedia.plot = aArtist['description']
 
-                self.xbmc_music.append(newMedia)
+                if(newMedia.verify()):
+                    self.xbmc_music.append(newMedia)
 
         utils.log("found " + str(len(self.xbmc_music)) + " music files")
 
@@ -170,8 +173,9 @@ class GrabFanartService:
 
                 if(aMovie['art'].has_key('poster')):
                     newMedia.poster = aMovie['art']['poster']
-                    
-                self.xbmc_movies.append(newMedia)
+
+                if(newMedia.verify()):    
+                    self.xbmc_movies.append(newMedia)
 
         utils.log("found " + str(len(self.xbmc_movies)) + " movie files")
        
@@ -195,7 +199,8 @@ class GrabFanartService:
                 if(aShow['art'].has_key('thumb')):
                     newMedia.thumb = aShow['art']['thumb']
 
-                self.xbmc_tv.append(newMedia)
+                if(newMedia.verify()):
+                    self.xbmc_tv.append(newMedia)
 
         utils.log("found " + str(len(self.xbmc_tv)) + " tv files")
         
@@ -208,7 +213,8 @@ class GrabFanartService:
                 newMedia.title = ",".join(aArtist['artist'])
                 newMedia.fan_art = aArtist['fanart']
 
-                self.xbmc_music.append(newMedia)
+                if(newMedia.verify()):
+                    self.xbmc_music.append(newMedia)
 
         utils.log("found " + str(len(self.xbmc_music)) + " music files")
 
@@ -236,5 +242,13 @@ class XbmcMedia:
     season = ''
     episode = ''
     thumb = ''
+
+    def verify(self):
+        result = True
+
+        if(self.title == '' or self.fan_art == '' or self.poster == ''):
+            result = False
+
+        return result
     
 GrabFanartService().run()
