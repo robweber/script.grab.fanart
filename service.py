@@ -47,7 +47,7 @@ class GrabFanartService:
                     aVideo = self.xbmc_movies[self.movie_index]
 
                     self.movie_index = self.movie_index + 1
-                    if(self.movie_index > len(self.xbmc_movies)):
+                    if(self.movie_index >= len(self.xbmc_movies)):
                         self.movie_index = 0
                     
                 if(len(self.xbmc_tv) > 0):
@@ -69,7 +69,7 @@ class GrabFanartService:
                         aVideo = self.xbmc_tv[self.tv_index]
 
                     self.tv_index = self.tv_index + 1
-                    if(self.tv_index > len(self.xbmc_tv)):
+                    if(self.tv_index >= len(self.xbmc_tv)):
                         self.tv_index = 0
 
                 if(aVideo != None):
@@ -86,7 +86,7 @@ class GrabFanartService:
                     self.WINDOW.setProperty('script.grab.fanart.Music.Description',self.xbmc_music[self.music_index].plot)
 
                     self.music_index = self.music_index + 1
-                    if(self.music_index > len(self.xbmc_music)):
+                    if(self.music_index >= len(self.xbmc_music)):
                         self.music_index = 0
                     
                 self.refresh_prop = time() + float(utils.getSetting("refresh"))
