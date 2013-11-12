@@ -30,6 +30,7 @@ class GrabFanartService:
         self.xbmc_music = list()
         
     def run(self):
+
         #keep this thread alive
         while(not xbmc.abortRequested):
 
@@ -80,7 +81,7 @@ class GrabFanartService:
 
                 if(len(self.xbmc_music) > 0):
                     
-                    utils.log(self.xbmc_music[random_index].title,xbmc.LOGDEBUG)
+                    utils.log(self.xbmc_music[self.music_index].title,xbmc.LOGDEBUG)
                     self.WINDOW.setProperty('script.grab.fanart.Music.Artist',self.xbmc_music[self.music_index].title)
                     self.WINDOW.setProperty('script.grab.fanart.Music.FanArt',self.xbmc_music[self.music_index].fan_art)
                     self.WINDOW.setProperty('script.grab.fanart.Music.Description',self.xbmc_music[self.music_index].plot)
@@ -163,6 +164,7 @@ class GrabFanartService:
                 newMedia = XbmcMedia()
                 newMedia.title = aArtist['artist']
                 newMedia.fan_art = aArtist['fanart']
+                newMedia.poster = aArtist['fanart']
                 newMedia.plot = aArtist['description']
 
                 if(newMedia.verify()):
@@ -239,7 +241,8 @@ class GrabFanartService:
                 newMedia = XbmcMedia()
                 newMedia.title = ",".join(aArtist['artist'])
                 newMedia.fan_art = aArtist['fanart']
-
+                newMedia.poster = aArtist['fanart']
+                
                 if(newMedia.verify()):
                     self.xbmc_music.append(newMedia)
 
