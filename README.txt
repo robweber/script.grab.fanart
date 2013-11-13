@@ -19,6 +19,9 @@ Window Properties:
 
 Currently the service part of this addon will update Home window properties that can be used by skinners. These properties are refreshed according to the "refresh" interval. 
 
+script.grab.fanart.Global.Title - the title of a random music or video file, 30% chance music, 30% TV, 40% movie
+script.grab.fanart.Global.FanArt - path to the fanart image for this media
+
 script.grab.fanart.Video.Title - the title of a random video (movie or tv show). There is a 10% chance of this being a TV show. 
 script.grab.fanart.Video.FanArt - the path to the fanart image for this video
 script.grab.fanart.Video.Poster - path to poster image for this video

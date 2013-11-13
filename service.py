@@ -37,23 +37,26 @@ class GrabFanartService:
             if(time() >= self.refresh_prop):
 
                 aVideo = None
+                globalArt = None
+                
                 if(len(self.xbmc_movies) > 0):
                     
-                    utils.log(self.xbmc_movies[self.movie_index].title,xbmc.LOGDEBUG)
+                    utils.log('Movie - ' + self.xbmc_movies[self.movie_index].title,xbmc.LOGDEBUG)
                     self.WINDOW.setProperty('script.grab.fanart.Movie.Title',self.xbmc_movies[self.movie_index].title)
                     self.WINDOW.setProperty('script.grab.fanart.Movie.FanArt',self.xbmc_movies[self.movie_index].fan_art)
                     self.WINDOW.setProperty('script.grab.fanart.Movie.Poster',self.xbmc_movies[self.movie_index].poster)
                     self.WINDOW.setProperty('script.grab.fanart.Movie.Plot',self.xbmc_movies[self.movie_index].plot)
                     
                     aVideo = self.xbmc_movies[self.movie_index]
-
+                    globalArt = aVideo
+                    
                     self.movie_index = self.movie_index + 1
                     if(self.movie_index >= len(self.xbmc_movies)):
                         self.movie_index = 0
                     
                 if(len(self.xbmc_tv) > 0):
                     
-                    utils.log(self.xbmc_tv[self.tv_index].title,xbmc.LOGDEBUG)
+                    utils.log('TV - ' + self.xbmc_tv[self.tv_index].title,xbmc.LOGDEBUG)
                     self.WINDOW.setProperty('script.grab.fanart.TV.Title',self.xbmc_tv[self.tv_index].title)
                     self.WINDOW.setProperty('script.grab.fanart.TV.FanArt',self.xbmc_tv[self.tv_index].fan_art)
                     self.WINDOW.setProperty('script.grab.fanart.TV.Poster',self.xbmc_tv[self.tv_index].poster)
@@ -69,11 +72,16 @@ class GrabFanartService:
                     if(aVideo == None or self.randomNum(10) == 9):
                         aVideo = self.xbmc_tv[self.tv_index]
 
+                    #30% change of TV show on global
+                    if(globalArt == None or self.randomNum(3) == 2):
+                        globalArt = self.xbmc_tv[self.tv_index]
+                        
                     self.tv_index = self.tv_index + 1
                     if(self.tv_index >= len(self.xbmc_tv)):
                         self.tv_index = 0
 
                 if(aVideo != None):
+                    utils.log('Video - ' + aVideo.title)
                     self.WINDOW.setProperty('script.grab.fanart.Video.Title',aVideo.title)
                     self.WINDOW.setProperty('script.grab.fanart.Video.FanArt',aVideo.fan_art)
                     self.WINDOW.setProperty('script.grab.fanart.Video.Poster',aVideo.poster)
@@ -81,14 +89,23 @@ class GrabFanartService:
 
                 if(len(self.xbmc_music) > 0):
                     
-                    utils.log(self.xbmc_music[self.music_index].title,xbmc.LOGDEBUG)
+                    utils.log('Music - ' + self.xbmc_music[self.music_index].title,xbmc.LOGDEBUG)
                     self.WINDOW.setProperty('script.grab.fanart.Music.Artist',self.xbmc_music[self.music_index].title)
                     self.WINDOW.setProperty('script.grab.fanart.Music.FanArt',self.xbmc_music[self.music_index].fan_art)
                     self.WINDOW.setProperty('script.grab.fanart.Music.Description',self.xbmc_music[self.music_index].plot)
 
+                    #30% of music fanart on global
+                    if(globalArt == None or self.randomNum(3) == 2):
+                        globalArt = self.xbmc_music[self.music_index]
+
                     self.music_index = self.music_index + 1
                     if(self.music_index >= len(self.xbmc_music)):
                         self.music_index = 0
+
+                if(globalArt != None):
+                    utils.log('Global - ' + globalArt.title,xbmc.LOGDEBUG)
+                    self.WINDOW.setProperty('script.grab.fanart.Global.Title',globalArt.title)
+                    self.WINDOW.setProperty('script.grab.fanart.Global.FanArt',globalArt.fan_art)
                     
                 self.refresh_prop = time() + float(utils.getSetting("refresh"))
 
