@@ -81,7 +81,7 @@ class GrabFanartService:
                         self.tv_index = 0
 
                 if(aVideo != None):
-                    utils.log('Video - ' + aVideo.title)
+                    utils.log('Video - ' + aVideo.title,xbmc.LOGDEBUG)
                     self.WINDOW.setProperty('script.grab.fanart.Video.Title',aVideo.title)
                     self.WINDOW.setProperty('script.grab.fanart.Video.FanArt',aVideo.fan_art)
                     self.WINDOW.setProperty('script.grab.fanart.Video.Poster',aVideo.poster)
@@ -276,7 +276,7 @@ class GrabFanartService:
         if(jsonobject.has_key('result')):
             return jsonobject['result']
         else:
-            utils.log("no result")
+            utils.log("no result",xbmc.LOGDEBUG)
             return None
 
     def randomNum(self,size):
