@@ -28,6 +28,15 @@ class GrabFanartService:
         self.xbmc_tv = list()
         self.xbmc_movies = list()
         self.xbmc_music = list()
+
+        #start populating the arrays right away - don't use threads here
+        if(utils.getSetting('mode') == 'random'):
+            self.grabRandom()
+        else:
+            self.grabRecent()
+                    
+        self.refresh_media = time() + (60 * 60)  #refresh again in 60 minutes
+
         
     def run(self):
 
