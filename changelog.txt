@@ -1,3 +1,7 @@
+Version 0.12.2
+
+Removed Programs extension point. No need for this anymore.
+
 Version 0.12.1
 
 start populating arrays right away, cuts down initial wait time. Thanks to SpaceMonkey
