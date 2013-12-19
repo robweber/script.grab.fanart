@@ -2,6 +2,7 @@ Version 0.12.4
 
 only clear lists when we know there is new content
 added try/catch for index error
+changed some logging to debug only
 
 Version 0.12.3
 
