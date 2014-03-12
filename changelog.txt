@@ -1,3 +1,8 @@
+Version 0.12.6
+
+added website tag
+removed settings and strings
+
 Version 0.12.5
 
 change startup type to "login" 
