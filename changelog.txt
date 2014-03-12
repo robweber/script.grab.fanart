@@ -1,7 +1,8 @@
 Version 0.12.6
 
 added website tag
-removed settings and strings
+removed settings visibility
+removed strings
 
 Version 0.12.5
 
