@@ -29,6 +29,9 @@ class GrabFanartService:
         self.xbmc_movies = list()
         self.xbmc_music = list()
 
+        #let XBMC know the script is not ready yet
+        self.WINDOW.setProperty('script.grab.fanart.Ready',"false")
+
         #start populating the arrays right away - don't use threads here
         if(utils.getSetting('mode') == 'random'):
             self.grabRandom()
@@ -37,6 +40,8 @@ class GrabFanartService:
                     
         self.refresh_media = time() + (60 * 60)  #refresh again in 60 minutes
 
+        #let xbmc know the images are ready
+        self.WINDOW.setProperty('script.grab.fanart.Ready',"true")
         
     def run(self):
 
