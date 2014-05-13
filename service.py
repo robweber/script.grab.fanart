@@ -316,7 +316,7 @@ class GrabFanartService:
     def getJSON(self,method,params):
         json_response = xbmc.executeJSONRPC('{ "jsonrpc" : "2.0" , "method" : "' + method + '" , "params" : ' + params + ' , "id":1 }')
 
-        jsonobject = json.loads(json_response)
+        jsonobject = json.loads(json_response.decode('utf-8','replace'))
        
         if(jsonobject.has_key('result')):
             return jsonobject['result']
