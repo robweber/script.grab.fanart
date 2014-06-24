@@ -1,3 +1,7 @@
+Version 0.13.1
+
+decode json string before parsing
+
 Version 0.13.0
 
 added logo to Global properties per Jeroen's request
