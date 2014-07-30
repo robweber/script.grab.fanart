@@ -41,9 +41,6 @@ class GrabFanartService:
         self.refresh_media = time() + (60 * 60)  #refresh again in 60 minutes
         
     def run(self):
-
-        #let xbmc know the images are ready
-        self.WINDOW.setProperty('script.grab.fanart.Ready',"true")
         
         #keep this thread alive
         while(not xbmc.abortRequested):
@@ -140,6 +137,8 @@ class GrabFanartService:
                     
                 self.refresh_prop = time() + float(utils.getSetting("refresh"))
 
+                #let xbmc know the images are ready
+                self.WINDOW.setProperty('script.grab.fanart.Ready',"true")
 
             #check if the media list should be updated
             if(time() >= self.refresh_media):
