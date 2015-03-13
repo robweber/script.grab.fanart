@@ -3,6 +3,7 @@ import xbmcgui
 import thread
 from time import time
 import json
+import xbmc
 import urllib
 import random
 import resources.lib.utils as utils
@@ -41,9 +42,10 @@ class GrabFanartService:
         self.refresh_media = time() + (60 * 60)  #refresh again in 60 minutes
         
     def run(self):
+        monitor = xbmc.Monitor()
         
         #keep this thread alive
-        while(not xbmc.abortRequested):
+        while(True):
 
             if(time() >= self.refresh_prop):
 
@@ -148,8 +150,9 @@ class GrabFanartService:
                     thread.start_new_thread(self.grabRecent,())
                     
                 self.refresh_media = time() + (60 * 60)  #refresh again in 60 minutes
-                    
-            xbmc.sleep(500)
+
+            if(monitor.waitForAbort(1)):
+                break;
 
     def grabRandom(self):
         utils.log("media type is: random",xbmc.LOGDEBUG)
