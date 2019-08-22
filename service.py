@@ -154,7 +154,7 @@ class GrabFanartService:
             thread.start_new_thread(self.grabRecent, ())
 
     def grabRandom(self):
-        utils.log("media type is: random",xbmc.LOGDEBUG)
+        utils.log("media type is: random")
         
         media_array = self.getJSON('VideoLibrary.GetMovies','{"properties":["title","art","year","file","plot"]}')
             
@@ -181,7 +181,7 @@ class GrabFanartService:
                     self.xbmc_movies.append(newMedia)
             random.shuffle(self.xbmc_movies)
             
-        utils.log("found " + str(len(self.xbmc_movies)) + " movies files",xbmc.LOGDEBUG)
+        utils.log("found " + str(len(self.xbmc_movies)) + " movies files")
         
         media_array = self.getJSON('VideoLibrary.GetTVShows','{"properties":["title","art","year","file","plot"]}')
 
@@ -209,7 +209,7 @@ class GrabFanartService:
 
             random.shuffle(self.xbmc_tv)                    
 
-        utils.log("found " + str(len(self.xbmc_tv)) + " tv files",xbmc.LOGDEBUG)
+        utils.log("found " + str(len(self.xbmc_tv)) + " tv files")
         
         media_array = self.getJSON('AudioLibrary.GetArtists','{ "properties":["fanart","description"] }')
 
@@ -229,10 +229,10 @@ class GrabFanartService:
 
             random.shuffle(self.xbmc_music)
             
-        utils.log("found " + str(len(self.xbmc_music)) + " music files",xbmc.LOGDEBUG)
+        utils.log("found " + str(len(self.xbmc_music)) + " music files")
         
     def grabRecent(self):
-        utils.log("media type is: recent",xbmc.LOGDEBUG)
+        utils.log("media type is: recent")
         
         media_array = self.getJSON('VideoLibrary.GetRecentlyAddedMovies','{"properties":["title","art","year","file","plot"], "limits": {"end":10} }')
                  
@@ -260,7 +260,7 @@ class GrabFanartService:
                     
             random.shuffle(self.xbmc_movies)
 
-        utils.log("found " + str(len(self.xbmc_movies)) + " movie files",xbmc.LOGDEBUG)
+        utils.log("found " + str(len(self.xbmc_movies)) + " movie files")
         
         media_array = self.getJSON('VideoLibrary.GetRecentlyAddedEpisodes','{"properties":["showtitle","art","file","plot","season","episode"], "limits": {"end":10} }')
 
@@ -293,7 +293,7 @@ class GrabFanartService:
 
             random.shuffle(self.xbmc_tv)
 
-        utils.log("found " + str(len(self.xbmc_tv)) + " tv files",xbmc.LOGDEBUG)
+        utils.log("found " + str(len(self.xbmc_tv)) + " tv files")
         
         media_array = self.getJSON('AudioLibrary.GetRecentlyAddedAlbums','{ "properties":["artist","fanart"], "limits": {"end":10} }')
 
@@ -312,7 +312,7 @@ class GrabFanartService:
 
             random.shuffle(self.xbmc_music)
 
-        utils.log("found " + str(len(self.xbmc_music)) + " music files",xbmc.LOGDEBUG)
+        utils.log("found " + str(len(self.xbmc_music)) + " music files")
         
     def getJSON(self,method,params):
         json_response = xbmc.executeJSONRPC('{ "jsonrpc" : "2.0" , "method" : "' + method + '" , "params" : ' + params + ' , "id":1 }')
@@ -322,7 +322,7 @@ class GrabFanartService:
         if(jsonobject.has_key('result')):
             return jsonobject['result']
         else:
-            utils.log("no result " + str(jsonobject),xbmc.LOGDEBUG)
+            utils.log("no result " + str(jsonobject))
             return None
 
     def randomNum(self,size):
