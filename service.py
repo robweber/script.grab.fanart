@@ -7,7 +7,6 @@ import random
 import resources.lib.utils as utils
 
 class GrabFanartService:
-    refresh_prop = 0 #when to refresh the properties
     
     monitor = None #xbmc monitor object
     WINDOW = None #object representing the home window
@@ -45,106 +44,102 @@ class GrabFanartService:
         #keep this thread alive
         while(True):
 
-            if(time() >= self.refresh_prop):
+            aVideo = None
+            globalArt = None
+            
+            if(len(self.xbmc_movies) > 0):
 
-                aVideo = None
-                globalArt = None
+                try:
+
+                    self.WINDOW.setProperty('script.grab.fanart.Movie.Title',self.xbmc_movies[self.movie_index].title)
+                    self.WINDOW.setProperty('script.grab.fanart.Movie.FanArt',self.xbmc_movies[self.movie_index].fan_art)
+                    self.WINDOW.setProperty('script.grab.fanart.Movie.Poster',self.xbmc_movies[self.movie_index].poster)
+                    self.WINDOW.setProperty('script.grab.fanart.Movie.Logo',self.xbmc_movies[self.movie_index].logo)
+                    self.WINDOW.setProperty('script.grab.fanart.Movie.Plot',self.xbmc_movies[self.movie_index].plot)
+                    self.WINDOW.setProperty('script.grab.fanart.Movie.Path',self.xbmc_movies[self.movie_index].path)
                 
-                if(len(self.xbmc_movies) > 0):
-
-                    try:
-
-                        self.WINDOW.setProperty('script.grab.fanart.Movie.Title',self.xbmc_movies[self.movie_index].title)
-                        self.WINDOW.setProperty('script.grab.fanart.Movie.FanArt',self.xbmc_movies[self.movie_index].fan_art)
-                        self.WINDOW.setProperty('script.grab.fanart.Movie.Poster',self.xbmc_movies[self.movie_index].poster)
-                        self.WINDOW.setProperty('script.grab.fanart.Movie.Logo',self.xbmc_movies[self.movie_index].logo)
-                        self.WINDOW.setProperty('script.grab.fanart.Movie.Plot',self.xbmc_movies[self.movie_index].plot)
-                        self.WINDOW.setProperty('script.grab.fanart.Movie.Path',self.xbmc_movies[self.movie_index].path)
+                    aVideo = self.xbmc_movies[self.movie_index]
+                    globalArt = aVideo
                     
-                        aVideo = self.xbmc_movies[self.movie_index]
-                        globalArt = aVideo
-                        
-                    except IndexError:
-                        pass
-                    
-                    self.movie_index = self.movie_index + 1
-                    if(self.movie_index >= len(self.xbmc_movies)):
-                        self.movie_index = 0
-                    
-                if(len(self.xbmc_tv) > 0):
-
-                    try:
-                        
-                        self.WINDOW.setProperty('script.grab.fanart.TV.Title',self.xbmc_tv[self.tv_index].title)
-                        self.WINDOW.setProperty('script.grab.fanart.TV.FanArt',self.xbmc_tv[self.tv_index].fan_art)
-                        self.WINDOW.setProperty('script.grab.fanart.TV.Poster',self.xbmc_tv[self.tv_index].poster)
-                        self.WINDOW.setProperty('script.grab.fanart.TV.Logo',self.xbmc_tv[self.tv_index].logo)
-                        self.WINDOW.setProperty('script.grab.fanart.TV.Plot',self.xbmc_tv[self.tv_index].plot)
-                        self.WINDOW.setProperty('script.grab.fanart.TV.Path',self.xbmc_tv[self.tv_index].path)
-
-                        #this will only have a value when "recent" is the type
-                        self.WINDOW.setProperty('script.grab.fanart.TV.Season',str(self.xbmc_tv[self.tv_index].season))
-                        self.WINDOW.setProperty('script.grab.fanart.TV.Episode',str(self.xbmc_tv[self.tv_index].episode))
-                        self.WINDOW.setProperty('script.grab.fanart.TV.Thumb',self.xbmc_tv[self.tv_index].thumb)
-                    
-
-                        #use a tv show if blank or randomly selected is = 9 (10% chance)
-                        if(aVideo == None or self.randomNum(10) == 9):
-                            aVideo = self.xbmc_tv[self.tv_index]
-
-                        #30% change of TV show on global
-                        if(globalArt == None or self.randomNum(3) == 2):
-                            globalArt = self.xbmc_tv[self.tv_index]
-                    except IndexError:
-                        pass
-                        
-                    self.tv_index = self.tv_index + 1
-                    if(self.tv_index >= len(self.xbmc_tv)):
-                        self.tv_index = 0
-
-                if(aVideo != None):
-                    
-                    self.WINDOW.setProperty('script.grab.fanart.Video.Title',aVideo.title)
-                    self.WINDOW.setProperty('script.grab.fanart.Video.FanArt',aVideo.fan_art)
-                    self.WINDOW.setProperty('script.grab.fanart.Video.Poster',aVideo.poster)
-                    self.WINDOW.setProperty('script.grab.fanart.Video.Logo',aVideo.logo)
-                    self.WINDOW.setProperty('script.grab.fanart.Video.Plot',aVideo.plot)
-                    self.WINDOW.setProperty('script.grab.fanart.Video.Path',aVideo.path)
-
-                if(len(self.xbmc_music) > 0):
-
-                    try:
-                        
-                        self.WINDOW.setProperty('script.grab.fanart.Music.Artist',self.xbmc_music[self.music_index].title)
-                        self.WINDOW.setProperty('script.grab.fanart.Music.FanArt',self.xbmc_music[self.music_index].fan_art)
-                        self.WINDOW.setProperty('script.grab.fanart.Music.Description',self.xbmc_music[self.music_index].plot)
-
-                        #30% of music fanart on global
-                        if(globalArt == None or self.randomNum(3) == 2):
-                            globalArt = self.xbmc_music[self.music_index]
-                    except IndexError:
-                        pass
-
-                    self.music_index = self.music_index + 1
-                    if(self.music_index >= len(self.xbmc_music)):
-                        self.music_index = 0
-
-                if(globalArt != None):
-                    
-                    self.WINDOW.setProperty('script.grab.fanart.Global.Title',globalArt.title)
-                    self.WINDOW.setProperty('script.grab.fanart.Global.FanArt',globalArt.fan_art)
-                    self.WINDOW.setProperty('script.grab.fanart.Global.Logo',globalArt.logo)
-
-                refresh_interval = 10
-                if(utils.getSetting('refresh') != ''):
-                    refresh_interval = float(utils.getSetting("refresh"))
+                except IndexError:
+                    pass
                 
-                self.refresh_prop = time() + refresh_interval
+                self.movie_index = self.movie_index + 1
+                if(self.movie_index >= len(self.xbmc_movies)):
+                    self.movie_index = 0
+                
+            if(len(self.xbmc_tv) > 0):
 
-                #let xbmc know the images are ready
-                self.WINDOW.setProperty('script.grab.fanart.Ready',"true")
+                try:
+                    
+                    self.WINDOW.setProperty('script.grab.fanart.TV.Title',self.xbmc_tv[self.tv_index].title)
+                    self.WINDOW.setProperty('script.grab.fanart.TV.FanArt',self.xbmc_tv[self.tv_index].fan_art)
+                    self.WINDOW.setProperty('script.grab.fanart.TV.Poster',self.xbmc_tv[self.tv_index].poster)
+                    self.WINDOW.setProperty('script.grab.fanart.TV.Logo',self.xbmc_tv[self.tv_index].logo)
+                    self.WINDOW.setProperty('script.grab.fanart.TV.Plot',self.xbmc_tv[self.tv_index].plot)
+                    self.WINDOW.setProperty('script.grab.fanart.TV.Path',self.xbmc_tv[self.tv_index].path)
 
-            if(self.monitor.waitForAbort(1)):
+                    #this will only have a value when "recent" is the type
+                    self.WINDOW.setProperty('script.grab.fanart.TV.Season',str(self.xbmc_tv[self.tv_index].season))
+                    self.WINDOW.setProperty('script.grab.fanart.TV.Episode',str(self.xbmc_tv[self.tv_index].episode))
+                    self.WINDOW.setProperty('script.grab.fanart.TV.Thumb',self.xbmc_tv[self.tv_index].thumb)
+                
+
+                    #use a tv show if blank or randomly selected is = 9 (10% chance)
+                    if(aVideo == None or self.randomNum(10) == 9):
+                        aVideo = self.xbmc_tv[self.tv_index]
+
+                    #30% change of TV show on global
+                    if(globalArt == None or self.randomNum(3) == 2):
+                        globalArt = self.xbmc_tv[self.tv_index]
+                except IndexError:
+                    pass
+                    
+                self.tv_index = self.tv_index + 1
+                if(self.tv_index >= len(self.xbmc_tv)):
+                    self.tv_index = 0
+
+            if(aVideo != None):
+                
+                self.WINDOW.setProperty('script.grab.fanart.Video.Title',aVideo.title)
+                self.WINDOW.setProperty('script.grab.fanart.Video.FanArt',aVideo.fan_art)
+                self.WINDOW.setProperty('script.grab.fanart.Video.Poster',aVideo.poster)
+                self.WINDOW.setProperty('script.grab.fanart.Video.Logo',aVideo.logo)
+                self.WINDOW.setProperty('script.grab.fanart.Video.Plot',aVideo.plot)
+                self.WINDOW.setProperty('script.grab.fanart.Video.Path',aVideo.path)
+
+            if(len(self.xbmc_music) > 0):
+
+                try:
+                    
+                    self.WINDOW.setProperty('script.grab.fanart.Music.Artist',self.xbmc_music[self.music_index].title)
+                    self.WINDOW.setProperty('script.grab.fanart.Music.FanArt',self.xbmc_music[self.music_index].fan_art)
+                    self.WINDOW.setProperty('script.grab.fanart.Music.Description',self.xbmc_music[self.music_index].plot)
+
+                    #30% of music fanart on global
+                    if(globalArt == None or self.randomNum(3) == 2):
+                        globalArt = self.xbmc_music[self.music_index]
+                except IndexError:
+                    pass
+
+                self.music_index = self.music_index + 1
+                if(self.music_index >= len(self.xbmc_music)):
+                    self.music_index = 0
+
+            if(globalArt != None):
+                
+                self.WINDOW.setProperty('script.grab.fanart.Global.Title',globalArt.title)
+                self.WINDOW.setProperty('script.grab.fanart.Global.FanArt',globalArt.fan_art)
+                self.WINDOW.setProperty('script.grab.fanart.Global.Logo',globalArt.logo)
+
+            #let xbmc know the images are ready
+            self.WINDOW.setProperty('script.grab.fanart.Ready',"true")
+            
+            refresh_interval = 10
+            if(utils.getSetting('refresh') != ''):
+                refresh_interval = float(utils.getSetting("refresh"))
+
+            if(self.monitor.waitForAbort(refresh_interval)):
                 break;
 
     def updateMedia(self):
