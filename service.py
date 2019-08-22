@@ -3,8 +3,6 @@ import xbmcgui
 import thread
 from time import time
 import json
-import xbmc
-import urllib
 import random
 import resources.lib.utils as utils
 
