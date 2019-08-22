@@ -10,11 +10,11 @@ def data_dir():
 def addon_dir():
     return __Addon.getAddonInfo('path')
 
-def log(message,loglevel=xbmc.LOGNOTICE):
+def log(message,loglevel=xbmc.LOGDEBUG):
     xbmc.log(encode(__addon_id__ + ": " + message),level=loglevel)
 
 def showNotification(message):
-    xbmc.executebuiltin("Notification(" + getString(30010) + "," + message + ",4000," + xbmc.translatePath(__Addon.getAddonInfo('path') + "/icon.png") + ")")
+    xbmc.executebuiltin("Notification(" + getString(30010) + "," + message + ",4000," + xbmc.translatePath(__Addon.getAddonInfo('path') + "/resources/media/icon.png") + ")")
 
 def getSetting(name):
     return __Addon.getSetting(name)
