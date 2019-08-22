@@ -1,7 +1,6 @@
 import xbmc
 import xbmcgui
 import thread
-from time import time
 import json
 import random
 import resources.lib.utils as utils
