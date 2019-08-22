@@ -1,4 +1,5 @@
 import xbmc
+import xbmcgui
 import xbmcaddon
 
 __addon_id__= 'script.grab.fanart'
@@ -14,7 +15,7 @@ def log(message,loglevel=xbmc.LOGDEBUG):
     xbmc.log(encode(__addon_id__ + ": " + message),level=loglevel)
 
 def showNotification(message):
-    xbmc.executebuiltin("Notification(" + getString(30010) + "," + message + ",4000," + xbmc.translatePath(__Addon.getAddonInfo('path') + "/resources/media/icon.png") + ")")
+    xbmcgui.Dialog().notification(encode(getString(30010)),encode(message),time=4000,icon=xbmc.translatePath(__Addon.getAddonInfo('path') + "/resources/media/icon.png"))
 
 def getSetting(name):
     return __Addon.getSetting(name)
