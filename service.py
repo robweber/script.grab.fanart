@@ -8,8 +8,8 @@ import resources.lib.utils as utils
 
 class GrabFanartService:
     refresh_prop = 0 #when to refresh the properties
-    refresh_media = 0 #when to refresh the media list
     
+    monitor = None #xbmc monitor object
     WINDOW = None #object representing the home window
     xbmc_tv = None #array for tv shows
     xbmc_movies = None #array for movie files
@@ -36,11 +36,11 @@ class GrabFanartService:
             self.grabRandom()
         else:
             self.grabRecent()
-                    
-        self.refresh_media = time() + (60 * 60)  #refresh again in 60 minutes
+        
+        #start the monitor
+        self.monitor = UpdateMonitor(after_scan=self.updateMedia)
         
     def run(self):
-        monitor = xbmc.Monitor()
         
         #keep this thread alive
         while(True):
@@ -144,17 +144,14 @@ class GrabFanartService:
                 #let xbmc know the images are ready
                 self.WINDOW.setProperty('script.grab.fanart.Ready',"true")
 
-            #check if the media list should be updated
-            if(time() >= self.refresh_media):
-                if(utils.getSetting('mode') == '' or utils.getSetting('mode') == 'random'):
-                    thread.start_new_thread(self.grabRandom,())
-                else:
-                    thread.start_new_thread(self.grabRecent,())
-                    
-                self.refresh_media = time() + (60 * 60)  #refresh again in 60 minutes
-
-            if(monitor.waitForAbort(1)):
+            if(self.monitor.waitForAbort(1)):
                 break;
+
+    def updateMedia(self):
+        if(utils.getSetting('mode') == '' or utils.getSetting('mode') == 'random'):
+            thread.start_new_thread(self.grabRandom, ())
+        else:
+            thread.start_new_thread(self.grabRecent, ())
 
     def grabRandom(self):
         utils.log("media type is: random",xbmc.LOGDEBUG)
@@ -351,5 +348,19 @@ class XbmcMedia:
             result = False
 
         return result
-    
+
+class UpdateMonitor(xbmc.Monitor):
+    #function to run after DB operations
+    after_scan = None
+     
+    def __init__(self,*args,**kwargs):
+        xbmc.Monitor.__init__(self)
+        self.after_scan = kwargs['after_scan']
+
+    def onScanFinished(self,library):
+        self.after_scan()
+
+    def onCleanFinished(self, library):
+        self.after_scan()
+        
 GrabFanartService().run()
