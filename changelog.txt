@@ -1,3 +1,9 @@
+Version 0.15.0
+
+Made compatible with Krypton+ structure
+only update on library change, removed timer
+use waitForAbort to set image refresh, less processor intensive
+
 Version 0.14.1
 
 fix for if bad refresh time is given
