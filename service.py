@@ -7,6 +7,7 @@ import random
 import resources.lib.utils as utils
 
 class GrabFanartService:
+    current_mode = 'random'
     
     monitor = None #xbmc monitor object
     WINDOW = None #object representing the home window
@@ -135,6 +136,10 @@ class GrabFanartService:
             #let xbmc know the images are ready
             self.WINDOW.setProperty('script.grab.fanart.Ready',"true")
             
+            #check if mode has changed
+            if(utils.getSetting('mode') != '' and utils.getSetting('mode') != self.current_mode):
+                self.updateMedia()
+            
             refresh_interval = 10
             if(utils.getSetting('refresh') != ''):
                 refresh_interval = float(utils.getSetting("refresh"))
@@ -150,6 +155,7 @@ class GrabFanartService:
 
     def grabRandom(self):
         utils.log("media type is: random")
+        self.current_mode = 'random'
         
         media_array = self.getJSON('VideoLibrary.GetMovies','{"properties":["title","art","year","file","plot"]}')
             
@@ -228,6 +234,7 @@ class GrabFanartService:
         
     def grabRecent(self):
         utils.log("media type is: recent")
+        self.current_mode = 'recent'
         
         media_array = self.getJSON('VideoLibrary.GetRecentlyAddedMovies','{"properties":["title","art","year","file","plot"], "limits": {"end":10} }')
                  
