@@ -1,8 +1,7 @@
-import xbmc
-import xbmcgui
-import thread
 import json
 import random
+from kodi_six import xbmc, xbmcgui
+import future.moves._thread
 import resources.lib.utils as utils
 
 class GrabFanartService:
@@ -148,9 +147,9 @@ class GrabFanartService:
 
     def updateMedia(self):
         if(utils.getSetting('mode') == '' or utils.getSetting('mode') == 'random'):
-            thread.start_new_thread(self.grabRandom, ())
+            start_new_thread(self.grabRandom, ())
         else:
-            thread.start_new_thread(self.grabRecent, ())
+            start_new_thread(self.grabRecent, ())
 
     def grabRandom(self):
         utils.log("media type is: random")
