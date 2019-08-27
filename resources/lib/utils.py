@@ -10,7 +10,7 @@ def addon_dir():
     return __Addon.getAddonInfo('path')
 
 def log(message,loglevel=xbmc.LOGDEBUG):
-    xbmc.log(__addon_id__ + ": " + message,level=loglevel)
+    xbmc.log(__addon_id__ + "-" + __Addon.getAddonInfo('version') +  ": " + message,level=loglevel)
 
 def showNotification(message):
     xbmcgui.Dialog().notification(getString(30010),message,time=4000,icon=xbmc.translatePath(__Addon.getAddonInfo('path') + "/resources/media/icon.png"))
