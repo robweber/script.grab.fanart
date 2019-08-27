@@ -1,5 +1,5 @@
 # Grab Fanart
-__Kodi Version Compatibility:__ Kodi 17.x (Krypton) and above
+__Kodi Version Compatibility:__ Kodi 18.x (Leia) and above
 
 ## About: 
 

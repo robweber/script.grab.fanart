@@ -2,7 +2,7 @@
 <addon id="script.grab.fanart"
     name="Grab Fanart" version="0.15.0" provider-name="robweber">
   <requires>
-    <import addon="xbmc.python" version="2.25.0"/>
+    <import addon="xbmc.python" version="2.26.0"/>
   </requires>
   <extension point="xbmc.python.library" library="default.py" />
   <extension point="xbmc.service" library="service.py" start="login" />
