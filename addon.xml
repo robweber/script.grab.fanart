@@ -15,7 +15,9 @@
     <license>The MIT License</license>
     <platform>all</platform>
     <language>en</language>
-    <news></news>
+    <news>Version 0.15.0
+- updated for Krypton
+    </news>
     <assets>
     	<icon>resources/media/icon.png</icon>
     </assets>
