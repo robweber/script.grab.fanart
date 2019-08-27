@@ -1,7 +1,7 @@
 import json
 import random
 from kodi_six import xbmc, xbmcgui
-import future.moves._thread
+from future.moves._thread import start_new_thread
 import resources.lib.utils as utils
 
 class GrabFanartService:
@@ -317,7 +317,7 @@ class GrabFanartService:
     def getJSON(self,method,params):
         json_response = xbmc.executeJSONRPC('{ "jsonrpc" : "2.0" , "method" : "' + method + '" , "params" : ' + params + ' , "id":1 }')
 
-        jsonobject = json.loads(json_response.decode('utf-8','replace'))
+        jsonobject = json.loads(json_response)
        
         if('result' in jsonobject):
             return jsonobject['result']
