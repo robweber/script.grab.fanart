@@ -158,7 +158,7 @@ class GrabFanartService:
         
         media_array = self.getJSON('VideoLibrary.GetMovies','{"properties":["title","art","year","file","plot"]}')
             
-        if(media_array != None and media_array.has_key('movies')):
+        if(media_array != None and 'movies' in media_array):
             self.xbmc_movies = list()    #reset the list
             self.movie_index = 0
             
@@ -168,13 +168,13 @@ class GrabFanartService:
                 newMedia.plot = aMovie['plot']
                 newMedia.path = aMovie['file']
                 
-                if(aMovie['art'].has_key('fanart')):
+                if('fanart' in aMovie['art']):
                     newMedia.fan_art = aMovie['art']['fanart']
 
-                if(aMovie['art'].has_key('poster')):
+                if('poster' in aMovie['art']):
                     newMedia.poster = aMovie['art']['poster']
 
-                if(aMovie['art'].has_key('clearlogo')):
+                if('clearlogo' in aMovie['art']):
                     newMedia.logo = aMovie['art']['clearlogo']
 
                 if(newMedia.verify()):
@@ -185,7 +185,7 @@ class GrabFanartService:
         
         media_array = self.getJSON('VideoLibrary.GetTVShows','{"properties":["title","art","year","file","plot"]}')
 
-        if(media_array != None and media_array.has_key('tvshows')):
+        if(media_array != None and 'tvshows' in media_array):
             self.xbmc_tv = list()
             self.tv_index = 0
              
@@ -195,13 +195,13 @@ class GrabFanartService:
                 newMedia.plot = aShow['plot']
                 newMedia.path = aShow['file']
                 
-                if(aShow['art'].has_key('fanart')):
+                if('fanart' in aShow['art']):
                     newMedia.fan_art = aShow['art']['fanart']
 
-                if(aShow['art'].has_key('poster')):
+                if('poster' in aShow['art']):
                     newMedia.poster = aShow['art']['poster']
 
-                if(aShow['art'].has_key('clearlogo')):
+                if('clearlogo' in aShow['art']):
                     newMedia.logo = aShow['art']['clearlogo']
 
                 if(newMedia.verify()):
@@ -213,7 +213,7 @@ class GrabFanartService:
         
         media_array = self.getJSON('AudioLibrary.GetArtists','{ "properties":["fanart","description"] }')
 
-        if(media_array != None and media_array.has_key('artists')):
+        if(media_array != None and 'artists' in media_array):
             self.xbmc_music = list()
             self.music_index = 0
             
@@ -237,7 +237,7 @@ class GrabFanartService:
         
         media_array = self.getJSON('VideoLibrary.GetRecentlyAddedMovies','{"properties":["title","art","year","file","plot"], "limits": {"end":10} }')
                  
-        if(media_array != None and media_array.has_key('movies')):
+        if(media_array != None and 'movies' in media_array):
             self.xbmc_movies = list()    #reset the list
             self.movie_index = 0
             
@@ -247,13 +247,13 @@ class GrabFanartService:
                 newMedia.plot = aMovie['plot']
                 newMedia.path = aMovie['file']
                 
-                if(aMovie['art'].has_key('fanart')):
+                if('fanart' in aMovie['art']):
                     newMedia.fan_art = aMovie['art']['fanart']
 
-                if(aMovie['art'].has_key('poster')):
+                if('poster' in aMovie['art']):
                     newMedia.poster = aMovie['art']['poster']
 
-                if(aMovie['art'].has_key('clearlogo')):
+                if('clearlogo' in aMovie['art']):
                     newMedia.logo = aMovie['art']['clearlogo']
 
                 if(newMedia.verify()):    
@@ -265,7 +265,7 @@ class GrabFanartService:
         
         media_array = self.getJSON('VideoLibrary.GetRecentlyAddedEpisodes','{"properties":["showtitle","art","file","plot","season","episode"], "limits": {"end":10} }')
 
-        if(media_array != None and media_array.has_key('episodes')):
+        if(media_array != None and 'episodes' in media_array):
             self.xbmc_tv = list()
             self.tv_index = 0
             
@@ -277,16 +277,16 @@ class GrabFanartService:
                 newMedia.episode = aShow['episode']
                 newMedia.path = aMovie['file']
                 
-                if(aShow['art'].has_key('tvshow.fanart')):
+                if('tvshow.fanart' in aShow['art']):
                     newMedia.fan_art = aShow['art']['tvshow.fanart']
 
-                if(aShow['art'].has_key('tvshow.poster')):
+                if('tvshow.poster' in aShow['art']):
                     newMedia.poster = aShow['art']['tvshow.poster']
 
-                if(aShow['art'].has_key('tvshow.clearlogo')):
+                if('tvshow.clearlogo' in aShow['art']):
                     newMedia.logo = aShow['art']['tvshow.clearlogo']
 
-                if(aShow['art'].has_key('thumb')):
+                if('thumb' in aShow['art']):
                     newMedia.thumb = aShow['art']['thumb']
 
                 if(newMedia.verify()):
@@ -298,7 +298,7 @@ class GrabFanartService:
         
         media_array = self.getJSON('AudioLibrary.GetRecentlyAddedAlbums','{ "properties":["artist","fanart"], "limits": {"end":10} }')
 
-        if(media_array != None and media_array.has_key('albums')):
+        if(media_array != None and 'albums' in media_array):
             self.xbmc_music = list()
             self.music_index = 0
             
@@ -320,7 +320,7 @@ class GrabFanartService:
 
         jsonobject = json.loads(json_response.decode('utf-8','replace'))
        
-        if(jsonobject.has_key('result')):
+        if('result' in jsonobject):
             return jsonobject['result']
         else:
             utils.log("no result " + str(jsonobject))
