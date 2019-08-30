@@ -17,7 +17,7 @@
     <license>The MIT License</license>
     <platform>all</platform>
     <language>en</language>
-    <news>Version 0.15.0
+    <news>Version 0.15.1
 - Make compatible with Leia
 - Update libs for python 2/3 compatibility
     </news>
