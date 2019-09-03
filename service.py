@@ -138,11 +138,7 @@ class GrabFanartService:
             if(utils.getSetting('mode') != '' and utils.getSetting('mode') != self.current_mode):
                 self.updateMedia()
             
-            refresh_interval = 10
-            if(utils.getSetting('refresh') != ''):
-                refresh_interval = float(utils.getSetting("refresh"))
-
-            if(self.monitor.waitForAbort(refresh_interval)):
+            if(self.monitor.waitForAbort(utils.getSettingInt("refresh"))):
                 break;
 
     def updateMedia(self):
