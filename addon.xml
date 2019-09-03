@@ -14,7 +14,7 @@
     <forum>https://forum.kodi.tv/showthread.php?tid=166572</forum>
     <source>https://github.com/robweber/script.grab.fanart</source>
 	<website>https://github.com/robweber/script.grab.fanart</website>
-    <license>The MIT License</license>
+    <license>MIT</license>
     <platform>all</platform>
     <language>en</language>
     <news>Version 0.15.1
