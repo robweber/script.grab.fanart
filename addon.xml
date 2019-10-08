@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <addon id="script.grab.fanart"
-    name="Grab Fanart" version="0.15.1" provider-name="robweber">
+    name="Grab Fanart" version="0.15.2" provider-name="robweber">
   <requires>
     <import addon="xbmc.python" version="2.26.0"/>
     <import addon="script.module.kodi-six" version="0.1.0"/>
@@ -17,9 +17,8 @@
     <license>MIT</license>
     <platform>all</platform>
     <language>en</language>
-    <news>Version 0.15.1
-- Make compatible with Leia
-- Update libs for python 2/3 compatibility
+    <news>Version 0.15.2
+- code styling changes
     </news>
     <assets>
     	<icon>resources/media/icon.png</icon>
