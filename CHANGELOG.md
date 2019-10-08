@@ -14,14 +14,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
 - changed some code styling based on [flake8](https://github.com/pycqa/flake8/) linting
 
-## Version 0.15.1
+## [Version 0.15.1](https://github.com/robweber/script.grab.fanart/compare/krypton-0.15.0...robweber:leia-0.15.1)
 
 ### Changed
 - Make compatible with Leia
 - Update libs for python 2/3 compatibility
 - use getSettingInt() for numbers
 
-## Version 0.15.0
+## [Version 0.15.0](https://github.com/robweber/script.grab.fanart/compare/helix-0.14.1...robweber:krypton-0.15.0)
 
 ### Changed
 - Made compatible with Krypton+ structure
