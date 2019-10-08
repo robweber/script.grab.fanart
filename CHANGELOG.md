@@ -7,6 +7,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 ## Unreleased
 
 ### Added
+- added flake8 tests to TravisCI
 - added TravisCI build file to test addon agains kodi-addon-checker
 - added Changelog format based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 

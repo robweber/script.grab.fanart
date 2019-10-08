@@ -10,5 +10,3 @@ if(len(sys.argv) > 1):
             splitString = arg.split('=')
             utils.log(splitString[0])
             utils.setSetting(splitString[0], splitString[1])
-            
-            

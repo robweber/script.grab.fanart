@@ -7,7 +7,7 @@ import resources.lib.utils as utils
 
 class GrabFanartService:
     current_mode = 'random'
-    
+
     monitor = None  # xbmc monitor object
     WINDOW = None  # object representing the home window
     kodi_tv = None  # array for tv shows
@@ -20,7 +20,7 @@ class GrabFanartService:
 
     def __init__(self):
         utils.log("Grab Fanart Service Started")
-        
+
         # setup the window and file list
         self.WINDOW = xbmcgui.Window(10000)
         self.kodi_tv = list()
@@ -38,15 +38,15 @@ class GrabFanartService:
 
         # start the monitor
         self.monitor = UpdateMonitor(after_scan=self.updateMedia)
-        
+
     def run(self):
-        
+
         # keep this thread alive
         while(True):
 
             aVideo = None
             globalArt = None
-            
+
             if(len(self.kodi_movies) > 0):
 
                 try:
@@ -57,17 +57,17 @@ class GrabFanartService:
                     self.WINDOW.setProperty('script.grab.fanart.Movie.Logo', self.kodi_movies[self.movie_index].logo)
                     self.WINDOW.setProperty('script.grab.fanart.Movie.Plot', self.kodi_movies[self.movie_index].plot)
                     self.WINDOW.setProperty('script.grab.fanart.Movie.Path', self.kodi_movies[self.movie_index].path)
-                
+
                     aVideo = self.kodi_movies[self.movie_index]
                     globalArt = aVideo
-                    
+
                 except IndexError:
                     pass
-                
+
                 self.movie_index = self.movie_index + 1
                 if(self.movie_index >= len(self.kodi_movies)):
                     self.movie_index = 0
-                
+
             if(len(self.kodi_tv) > 0):
 
                 try:
@@ -79,18 +79,17 @@ class GrabFanartService:
                     self.WINDOW.setProperty('script.grab.fanart.TV.Plot', self.kodi_tv[self.tv_index].plot)
                     self.WINDOW.setProperty('script.grab.fanart.TV.Path', self.kodi_tv[self.tv_index].path)
 
-                    #this will only have a value when "recent" is the type
+                    # this will only have a value when "recent" is the type
                     self.WINDOW.setProperty('script.grab.fanart.TV.Season', str(self.kodi_tv[self.tv_index].season))
                     self.WINDOW.setProperty('script.grab.fanart.TV.Episode', str(self.kodi_tv[self.tv_index].episode))
                     self.WINDOW.setProperty('script.grab.fanart.TV.Thumb', self.kodi_tv[self.tv_index].thumb)
 
-
-                    #use a tv show if blank or randomly selected is = 9 (10% chance)
-                    if(aVideo == None or self.randomNum(10) == 9):
+                    # use a tv show if blank or randomly selected is = 9 (10% chance)
+                    if(aVideo is None or self.randomNum(10) == 9):
                         aVideo = self.kodi_tv[self.tv_index]
 
-                    #30% change of TV show on global
-                    if(globalArt == None or self.randomNum(3) == 2):
+                    # 30% change of TV show on global
+                    if(globalArt is None or self.randomNum(3) == 2):
                         globalArt = self.kodi_tv[self.tv_index]
                 except IndexError:
                     pass
@@ -101,12 +100,12 @@ class GrabFanartService:
 
             if(aVideo is not None):
 
-                self.WINDOW.setProperty('script.grab.fanart.Video.Title',aVideo.title)
-                self.WINDOW.setProperty('script.grab.fanart.Video.FanArt',aVideo.fan_art)
-                self.WINDOW.setProperty('script.grab.fanart.Video.Poster',aVideo.poster)
-                self.WINDOW.setProperty('script.grab.fanart.Video.Logo',aVideo.logo)
-                self.WINDOW.setProperty('script.grab.fanart.Video.Plot',aVideo.plot)
-                self.WINDOW.setProperty('script.grab.fanart.Video.Path',aVideo.path)
+                self.WINDOW.setProperty('script.grab.fanart.Video.Title', aVideo.title)
+                self.WINDOW.setProperty('script.grab.fanart.Video.FanArt', aVideo.fan_art)
+                self.WINDOW.setProperty('script.grab.fanart.Video.Poster', aVideo.poster)
+                self.WINDOW.setProperty('script.grab.fanart.Video.Logo', aVideo.logo)
+                self.WINDOW.setProperty('script.grab.fanart.Video.Plot', aVideo.plot)
+                self.WINDOW.setProperty('script.grab.fanart.Video.Path', aVideo.path)
 
             if(len(self.kodi_music) > 0):
 
@@ -140,7 +139,7 @@ class GrabFanartService:
                 self.updateMedia()
 
             if(self.monitor.waitForAbort(utils.getSettingInt("refresh"))):
-                break;
+                break
 
     def updateMedia(self):
         if(utils.getSetting('mode') == '' or utils.getSetting('mode') == 'random'):
@@ -163,7 +162,7 @@ class GrabFanartService:
                 newMedia.title = aMovie['title']
                 newMedia.plot = aMovie['plot']
                 newMedia.path = aMovie['file']
-                
+
                 if('fanart' in aMovie['art']):
                     newMedia.fan_art = aMovie['art']['fanart']
 
@@ -175,10 +174,11 @@ class GrabFanartService:
 
                 if(newMedia.verify()):
                     self.kodi_movies.append(newMedia)
+
             random.shuffle(self.kodi_movies)
-            
+
         utils.log("found " + str(len(self.kodi_movies)) + " movies files")
-        
+
         media_array = self.getJSON('VideoLibrary.GetTVShows', '{"properties":["title","art","year","file","plot"]}')
 
         if(media_array is not None and 'tvshows' in media_array):
@@ -203,7 +203,7 @@ class GrabFanartService:
                 if(newMedia.verify()):
                     self.kodi_tv.append(newMedia)
 
-            random.shuffle(self.kodi_tv)                    
+            random.shuffle(self.kodi_tv)
 
         utils.log("found " + str(len(self.kodi_tv)) + " tv files")
 
@@ -212,7 +212,7 @@ class GrabFanartService:
         if(media_array is not None and 'artists' in media_array):
             self.kodi_music = list()
             self.music_index = 0
-            
+
             for aArtist in media_array["artists"]:
                 newMedia = XbmcMedia()
                 newMedia.title = aArtist['artist']
@@ -230,19 +230,19 @@ class GrabFanartService:
     def grabRecent(self):
         utils.log("media type is: recent")
         self.current_mode = 'recent'
-        
+
         media_array = self.getJSON('VideoLibrary.GetRecentlyAddedMovies', '{"properties":["title","art","year","file","plot"], "limits": {"end":10} }')
-                 
+
         if(media_array is not None and 'movies' in media_array):
             self.kodi_movies = list()    # reset the list
             self.movie_index = 0
-            
+
             for aMovie in media_array['movies']:
                 newMedia = XbmcMedia()
                 newMedia.title = aMovie['title']
                 newMedia.plot = aMovie['plot']
                 newMedia.path = aMovie['file']
-                
+
                 if('fanart' in aMovie['art']):
                     newMedia.fan_art = aMovie['art']['fanart']
 
@@ -252,19 +252,19 @@ class GrabFanartService:
                 if('clearlogo' in aMovie['art']):
                     newMedia.logo = aMovie['art']['clearlogo']
 
-                if(newMedia.verify()):    
+                if(newMedia.verify()):
                     self.kodi_movies.append(newMedia)
-                    
+
             random.shuffle(self.kodi_movies)
 
         utils.log("found " + str(len(self.kodi_movies)) + " movie files")
-        
+
         media_array = self.getJSON('VideoLibrary.GetRecentlyAddedEpisodes', '{"properties":["showtitle","art","file","plot","season","episode"], "limits": {"end":10} }')
 
         if(media_array is not None and 'episodes' in media_array):
             self.kodi_tv = list()
             self.tv_index = 0
-            
+
             for aShow in media_array['episodes']:
                 newMedia = XbmcMedia()
                 newMedia.title = aShow['showtitle']
@@ -272,7 +272,7 @@ class GrabFanartService:
                 newMedia.season = aShow['season']
                 newMedia.episode = aShow['episode']
                 newMedia.path = aMovie['file']
-                
+
                 if('tvshow.fanart' in aShow['art']):
                     newMedia.fan_art = aShow['art']['tvshow.fanart']
 
@@ -311,7 +311,7 @@ class GrabFanartService:
 
         utils.log("found " + str(len(self.kodi_music)) + " music files")
 
-    def getJSON(self,method,params):
+    def getJSON(self, method, params):
         json_response = xbmc.executeJSONRPC('{ "jsonrpc" : "2.0" , "method" : "' + method + '" , "params" : ' + params + ' , "id":1 }')
 
         jsonobject = json.loads(json_response)
@@ -322,9 +322,9 @@ class GrabFanartService:
             utils.log("no result " + str(jsonobject))
             return None
 
-    def randomNum(self,size):
+    def randomNum(self, size):
         # return random number from 0 to x-1
-        return random.randint(0,size -1)
+        return random.randint(0, size -1)
 
 
 class XbmcMedia:
@@ -350,14 +350,15 @@ class UpdateMonitor(xbmc.Monitor):
     # function to run after DB operations
     after_scan = None
      
-    def __init__(self,*args,**kwargs):
+    def __init__(self, *args, **kwargs):
         xbmc.Monitor.__init__(self)
         self.after_scan = kwargs['after_scan']
 
-    def onScanFinished(self,library):
+    def onScanFinished(self, library):
         self.after_scan()
 
     def onCleanFinished(self, library):
         self.after_scan()
         
 GrabFanartService().run()
+
