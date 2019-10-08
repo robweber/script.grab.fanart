@@ -1,7 +1,5 @@
 # Grab Fanart
-[![Build Status](https://travis-ci.org/robweber/script.grab.fanart.svg?branch=master)](https://travis-ci.org/robweber/script.grab.fanart)
-
-__Kodi Version Compatibility:__ Kodi 18.x (Leia) and above
+![Kodi Version](https://img.shields.io/badge/kodi%20version-v18%20Leia-blue.svg) [![Build Status](https://travis-ci.org/robweber/script.grab.fanart.svg?branch=master)](https://travis-ci.org/robweber/script.grab.fanart) [![License](https://img.shields.io/github/license/robweber/script.grab.fanart)](https://github.com/robweber/script.grab.fanart/blob/master/LICENSE.txt) [![PEP8](https://img.shields.io/badge/code%20style-pep8-orange.svg)](https://www.python.org/dev/peps/pep-0008/)
 
 ## About: 
 
