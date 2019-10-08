@@ -1,4 +1,6 @@
 # Grab Fanart
+[![Build Status](https://travis-ci.org/robweber/script.grab.fanart.svg?branch=master)](https://travis-ci.org/robweber/script.grab.fanart)
+
 __Kodi Version Compatibility:__ Kodi 18.x (Leia) and above
 
 ## About: 
