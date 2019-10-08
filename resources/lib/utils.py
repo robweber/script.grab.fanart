@@ -28,7 +28,7 @@ def getSettingInt(name):
     return __Addon.getSettingInt(name)
 
 
-def setSetting(name,value):
+def setSetting(name, value):
     __Addon.setSetting(name, value)
 
 

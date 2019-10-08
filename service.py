@@ -184,13 +184,13 @@ class GrabFanartService:
         if(media_array is not None and 'tvshows' in media_array):
             self.kodi_tv = list()
             self.tv_index = 0
-             
+
             for aShow in media_array['tvshows']:
                 newMedia = XbmcMedia()
                 newMedia.title = aShow['title']
                 newMedia.plot = aShow['plot']
                 newMedia.path = aShow['file']
-                
+
                 if('fanart' in aShow['art']):
                     newMedia.fan_art = aShow['art']['fanart']
 
@@ -324,7 +324,7 @@ class GrabFanartService:
 
     def randomNum(self, size):
         # return random number from 0 to x-1
-        return random.randint(0, size -1)
+        return random.randint(0, size - 1)
 
 
 class XbmcMedia:
@@ -337,7 +337,7 @@ class XbmcMedia:
     episode = ''
     thumb = ''
     path = ''
-    
+
     def verify(self):
         result = True
 
@@ -346,10 +346,11 @@ class XbmcMedia:
 
         return result
 
+
 class UpdateMonitor(xbmc.Monitor):
     # function to run after DB operations
     after_scan = None
-     
+
     def __init__(self, *args, **kwargs):
         xbmc.Monitor.__init__(self)
         self.after_scan = kwargs['after_scan']
@@ -359,6 +360,6 @@ class UpdateMonitor(xbmc.Monitor):
 
     def onCleanFinished(self, library):
         self.after_scan()
-        
-GrabFanartService().run()
 
+
+GrabFanartService().run()
