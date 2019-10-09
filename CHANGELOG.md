@@ -4,6 +4,16 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
+## [Unreleased](https://github.com/robweber/script.grab.fanart/compare/leia-0.15.2...HEAD)
+
+### Added
+
+- added dynamic kodi version badge using the shields endpoint api
+
+### Changed
+
+- use the travis CI badge from the shields.io site instead of linking directly to badge on travis site (loads faster)
+
 ## [Version 0.15.2](https://github.com/robweber/script.grab.fanart/compare/krypton-0.15.1...robweber:leia-0.15.2)
 
 ### Added
