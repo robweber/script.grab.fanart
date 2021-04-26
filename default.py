@@ -3,7 +3,7 @@ import resources.lib.utils as utils
 
 utils.log("updating settings")
 
-if(len(sys.argv) > 1)
+if(len(sys.argv) > 1):
     for i in sys.argv:
         args = i
         if('=' in args):
