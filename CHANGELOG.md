@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
-## [Version 0.16.0](https://github.com/robweber/script.grab.fanart/compare/leia-0.15.2...robweber:matrix-0.16.0)
+## [Version 0.16.0](https://github.com/robweber/script.grab.fanart/compare/leia-0.15.2...robweber:matrix-0.16.0) - 2021-04-26
 
 ### Added
 
