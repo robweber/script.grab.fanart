@@ -1,4 +1,7 @@
-from kodi_six import xbmc, xbmcaddon, xbmcgui
+import xbmc
+import xbmcaddon
+import xbmcgui
+import xbmcvfs
 
 __addon_id__ = 'script.grab.fanart'
 __Addon = xbmcaddon.Addon(__addon_id__)
@@ -17,7 +20,7 @@ def log(message, loglevel=xbmc.LOGDEBUG):
 
 
 def showNotification(message):
-    xbmcgui.Dialog().notification(getString(30010), message, time=4000, icon=xbmc.translatePath(__Addon.getAddonInfo('path') + "/resources/media/icon.png"))
+    xbmcgui.Dialog().notification(getString(30010), message, time=4000, icon=xbmcvfs.translatePath(__Addon.getAddonInfo('path') + "/resources/media/icon.png"))
 
 
 def getSetting(name):

@@ -1,6 +1,7 @@
 import json
 import random
-from kodi_six import xbmc, xbmcgui
+import xbmc
+import xbmcgui
 from future.moves._thread import start_new_thread
 import resources.lib.utils as utils
 
