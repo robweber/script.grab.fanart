@@ -1,5 +1,5 @@
 # Grab Fanart
-![Kodi Version](https://img.shields.io/endpoint?url=https%3A%2F%2Fweberjr.com%2Fkodi-shield%2Fversion%2Frobweber%2Fscript.grab.fanart%2Fmaster%2Ftrue%2Ftrue) [![Build Status](https://img.shields.io/travis/com/robweber/script.grab.fanart/master)](https://travis-ci.com/robweber/script.grab.fanart) [![License](https://img.shields.io/github/license/robweber/script.grab.fanart)](https://github.com/robweber/script.grab.fanart/blob/master/LICENSE.txt) [![PEP8](https://img.shields.io/badge/code%20style-pep8-orange.svg)](https://www.python.org/dev/peps/pep-0008/)
+![Kodi Version](https://img.shields.io/endpoint?url=https%3A%2F%2Fweberjr.com%2Fkodi-shield%2Fversion%2Frobweber%2Fscript.grab.fanart%2Fmatrix%2Ftrue%2Ftrue) [![Build Status](https://img.shields.io/travis/com/robweber/script.grab.fanart/matrix)](https://travis-ci.com/robweber/script.grab.fanart) [![License](https://img.shields.io/github/license/robweber/script.grab.fanart)](https://github.com/robweber/script.grab.fanart/blob/master/LICENSE.txt) [![PEP8](https://img.shields.io/badge/code%20style-pep8-orange.svg)](https://www.python.org/dev/peps/pep-0008/)
 
 ## About:
 
