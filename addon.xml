@@ -6,7 +6,7 @@
     <import addon="script.module.future" version="0.16.0.4"/>
   </requires>
   <extension point="xbmc.python.library" library="default.py" />
-  <extension point="xbmc.service" library="service.py"  />
+  <extension point="xbmc.service" library="launcher.py"  />
   <extension point="xbmc.addon.metadata">
     <summary lang="en_GB">Exposes fanart as skin properties for slideshows, etc</summary>
     <description lang="en_GB">Uses the Kodi database to grab all fanart from media items and put it into a skin property for use by skins/slideshows.</description>

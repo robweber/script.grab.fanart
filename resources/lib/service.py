@@ -3,7 +3,7 @@ import random
 import xbmc
 import xbmcgui
 from future.moves._thread import start_new_thread
-import resources.lib.utils as utils
+from . import utils as utils
 
 
 class GrabFanartService:
@@ -361,6 +361,3 @@ class UpdateMonitor(xbmc.Monitor):
 
     def onCleanFinished(self, library):
         self.after_scan()
-
-
-GrabFanartService().run()
