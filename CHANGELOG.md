@@ -13,6 +13,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 ### Changed
 
 - use the travis CI badge from the shields.io site instead of linking directly to badge on travis site (loads faster)
+- updated python files for Kodi matrix changes
 
 ## [Version 0.15.2](https://github.com/robweber/script.grab.fanart/compare/krypton-0.15.1...robweber:leia-0.15.2)
 
@@ -52,7 +53,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 ### Version 0.14.0
 
 ### Changed
-updated addon.xml for Helix, no longer backwards compatible with Gotham and below. 
+updated addon.xml for Helix, no longer backwards compatible with Gotham and below.
 
 ## Version 0.13.2
 
@@ -86,7 +87,7 @@ removed strings
 
 ## Version 0.12.5
 
-change startup type to "login" 
+change startup type to "login"
 
 ## Version 0.12.4
 
