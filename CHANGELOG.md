@@ -14,6 +14,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 
 - use the travis CI badge from the shields.io site instead of linking directly to badge on travis site (loads faster)
 - updated python files for Kodi matrix changes
+- moved `service.py` to the lib folder, best practice for entry point class is less than 15 lines
 
 ## [Version 0.15.2](https://github.com/robweber/script.grab.fanart/compare/krypton-0.15.1...robweber:leia-0.15.2)
 
