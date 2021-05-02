@@ -9,6 +9,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/)
 ### Added
 
 - added dynamic kodi version badge using the shields endpoint api
+- added .gitattributes file to pull unneeded files from repo submissions
 
 ### Changed
 
