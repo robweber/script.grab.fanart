@@ -32,17 +32,20 @@ Currently the service part of this addon will update Home window properties that
 | script.grab.fanart.Global.Title | the title of a random music or video file, 30% chance music, 30% TV, 40% movie |
 | script.grab.fanart.Global.FanArt | path to the fanart image for this media |
 | script.grab.fanart.Global.Logo | path to logo for this media - blank if it doesn't exist |
+| script.grab.fanart.Global.Clearart | path to clear art for this media - blank if it doesn't exist |
 | __Video Properties__ | |
 | script.grab.fanart.Video.Title | the title of a random video (movie or tv show). There is a 10% chance of this being a TV show. |
 | script.grab.fanart.Video.FanArt | the path to the fanart image for this video |
 | script.grab.fanart.Video.Poster | path to poster image for this video |
 | script.grab.fanart.Video.Logo | path to clear logo for this video - blank if it doesn't exist |
+| script.grab.fanart.Video.Clearart | path to video clear art - blank if it doesn't exist |
 | script.grab.fanart.Video.Plot | plot outline of this video |
 | script.grab.fanart.Video.Path | path to the video file |
 | __Movie Properties__ | |
 | script.grab.fanart.Movie.Title | title of the selected movie |
 | script.grab.fanart.Movie.FanArt | path to movie fanart |
 | script.grab.fanart.Movie.Poster | path to movie poster |
+| script.grab.fanart.Movie.Clearart | path to movie clear art - blank if it doesn't exist |
 | script.grab.fanart.Movie.Logo | path to clear logo for movie - blank if it doesn't exist |
 | script.grab.fanart.Movie.Plot | movie plot |
 | script.grab.fanart.Movie.Path | path to the movie file |
@@ -51,6 +54,7 @@ Currently the service part of this addon will update Home window properties that
 | script.grab.fanart.TV.FanArt | path to tv show fanart |
 | script.grab.fanart.TV.Poster | path to tv show poster |
 | script.grab.fanart.TV.Logo | path to clear logo for tv show - blank if it doesn't exist |
+| script.grab.fanart.TV.Clearart | path to TV clear art - blank if it doesn't exist |
 | script.grab.fanart.TV.Plot | tv show plot description |
 |script.grab.fanart.TV.Path  | path to the tv show show (will be the root folder if in "random" mode or the specific episode if in "recent" mode)|
 | | _The properties below will only have values when the addon mode is "recent"_ |
@@ -60,6 +64,8 @@ Currently the service part of this addon will update Home window properties that
 | __Music Properties__ | |
 |script.grab.fanart.Music.Artist | music artist name |
 | script.grab.fanart.Music.FanArt | path to artist fanart |
+| script.grab.fanart.Music.Logo | path to movie clear logo - blank if it doesn't exist |
+| script.grab.fanart.Music.Clearart | path to artist clear art - blank if it doesn't exist |
 | script.grab.fanart.Music.Description | artist description |
 
 ### Using In A Skin

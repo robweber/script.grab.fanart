@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <addon id="script.grab.fanart"
-    name="Grab Fanart" version="0.16.0" provider-name="robweber">
+    name="Grab Fanart" version="0.17.0~beta1" provider-name="robweber">
   <requires>
     <import addon="xbmc.python" version="3.0.0"/>
     <import addon="script.module.future" version="0.16.0.4"/>
@@ -16,8 +16,8 @@
     <license>MIT</license>
     <platform>all</platform>
     <language>en</language>
-    <news>Version 0.16.0
-- made compatible with Matrix
+    <news>Version 0.17.0
+- added additional clearart options for Video and Music
     </news>
     <assets>
     	<icon>resources/media/icon.png</icon>
