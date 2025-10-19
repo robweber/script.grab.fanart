@@ -56,6 +56,7 @@ class GrabFanartService:
                     self.WINDOW.setProperty('script.grab.fanart.Movie.FanArt', self.kodi_movies[self.movie_index].fan_art)
                     self.WINDOW.setProperty('script.grab.fanart.Movie.Poster', self.kodi_movies[self.movie_index].poster)
                     self.WINDOW.setProperty('script.grab.fanart.Movie.Logo', self.kodi_movies[self.movie_index].logo)
+                    self.WINDOW.setProperty('script.grab.fanart.Movie.Clearart', self.kodi_movies[self.movie_index].clearart)
                     self.WINDOW.setProperty('script.grab.fanart.Movie.Plot', self.kodi_movies[self.movie_index].plot)
                     self.WINDOW.setProperty('script.grab.fanart.Movie.Path', self.kodi_movies[self.movie_index].path)
 
@@ -77,6 +78,7 @@ class GrabFanartService:
                     self.WINDOW.setProperty('script.grab.fanart.TV.FanArt', self.kodi_tv[self.tv_index].fan_art)
                     self.WINDOW.setProperty('script.grab.fanart.TV.Poster', self.kodi_tv[self.tv_index].poster)
                     self.WINDOW.setProperty('script.grab.fanart.TV.Logo', self.kodi_tv[self.tv_index].logo)
+                    self.WINDOW.setProperty('script.grab.fanart.TV.Clearart', self.kodi_tv[self.tv_index].clearart)
                     self.WINDOW.setProperty('script.grab.fanart.TV.Plot', self.kodi_tv[self.tv_index].plot)
                     self.WINDOW.setProperty('script.grab.fanart.TV.Path', self.kodi_tv[self.tv_index].path)
 
@@ -105,6 +107,7 @@ class GrabFanartService:
                 self.WINDOW.setProperty('script.grab.fanart.Video.FanArt', aVideo.fan_art)
                 self.WINDOW.setProperty('script.grab.fanart.Video.Poster', aVideo.poster)
                 self.WINDOW.setProperty('script.grab.fanart.Video.Logo', aVideo.logo)
+                self.WINDOW.setProperty('script.grab.fanart.Video.Clearart', aVideo.clearart)
                 self.WINDOW.setProperty('script.grab.fanart.Video.Plot', aVideo.plot)
                 self.WINDOW.setProperty('script.grab.fanart.Video.Path', aVideo.path)
 
@@ -114,6 +117,8 @@ class GrabFanartService:
 
                     self.WINDOW.setProperty('script.grab.fanart.Music.Artist', self.kodi_music[self.music_index].title)
                     self.WINDOW.setProperty('script.grab.fanart.Music.FanArt', self.kodi_music[self.music_index].fan_art)
+                    self.WINDOW.setProperty('script.grab.fanart.Music.Logo', self.kodi_music[self.music_index].logo)
+                    self.WINDOW.setProperty('script.grab.fanart.Music.Clearart', self.kodi_music[self.music_index].clearart)
                     self.WINDOW.setProperty('script.grab.fanart.Music.Description', self.kodi_music[self.music_index].plot)
 
                     # 30% of music fanart on global
@@ -131,6 +136,7 @@ class GrabFanartService:
                 self.WINDOW.setProperty('script.grab.fanart.Global.Title', globalArt.title)
                 self.WINDOW.setProperty('script.grab.fanart.Global.FanArt', globalArt.fan_art)
                 self.WINDOW.setProperty('script.grab.fanart.Global.Logo', globalArt.logo)
+                self.WINDOW.setProperty('script.grab.fanart.Global.Clearart', globalArt.clearart)
 
             # let xbmc know the images are ready
             self.WINDOW.setProperty('script.grab.fanart.Ready', "true")
@@ -173,6 +179,9 @@ class GrabFanartService:
                 if('clearlogo' in aMovie['art']):
                     newMedia.logo = aMovie['art']['clearlogo']
 
+                if('clearart' in aMovie['art']):
+                    newMedia.clearart = aMovie['art']['clearart']
+
                 if(newMedia.verify()):
                     self.kodi_movies.append(newMedia)
 
@@ -201,6 +210,9 @@ class GrabFanartService:
                 if('clearlogo' in aShow['art']):
                     newMedia.logo = aShow['art']['clearlogo']
 
+                if('clearart' in aShow['art']):
+                    newMedia.clearart = aShow['art']['clearart']
+
                 if(newMedia.verify()):
                     self.kodi_tv.append(newMedia)
 
@@ -208,7 +220,7 @@ class GrabFanartService:
 
         utils.log("found " + str(len(self.kodi_tv)) + " tv files")
 
-        media_array = self.getJSON('AudioLibrary.GetArtists', '{ "properties":["fanart","description"] }')
+        media_array = self.getJSON('AudioLibrary.GetArtists', '{ "properties":["art","fanart","description"] }')
 
         if(media_array is not None and 'artists' in media_array):
             self.kodi_music = list()
@@ -220,6 +232,12 @@ class GrabFanartService:
                 newMedia.fan_art = aArtist['fanart']
                 newMedia.poster = aArtist['fanart']
                 newMedia.plot = aArtist['description']
+
+                if('clearlogo' in aArtist['art']):
+                    newMedia.logo = aArtist['art']['clearlogo']
+
+                if('clearart' in aArtist['art']):
+                    newMedia.clearart = aArtist['art']['clearart']
 
                 if(newMedia.verify()):
                     self.kodi_music.append(newMedia)
@@ -253,6 +271,9 @@ class GrabFanartService:
                 if('clearlogo' in aMovie['art']):
                     newMedia.logo = aMovie['art']['clearlogo']
 
+                if('clearart' in aMovie['art']):
+                    newMedia.clearart = aMovie['art']['clearart']
+
                 if(newMedia.verify()):
                     self.kodi_movies.append(newMedia)
 
@@ -282,6 +303,9 @@ class GrabFanartService:
 
                 if('tvshow.clearlogo' in aShow['art']):
                     newMedia.logo = aShow['art']['tvshow.clearlogo']
+
+                if('tvshow.clearart' in aShow['art']):
+                    newMedia.clearart = aShow['art']['tvshow.clearart']
 
                 if('thumb' in aShow['art']):
                     newMedia.thumb = aShow['art']['thumb']
@@ -333,6 +357,7 @@ class XbmcMedia:
     fan_art = ''
     poster = ''
     logo = ''
+    clearart = ''
     plot = ''
     season = ''
     episode = ''
